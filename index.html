@@ -63,71 +63,6 @@
 
 <main>
 
-<!-- ── Projects ── -->
-<section id="projects">
-  <div class="container">
-    <div class="section-header">
-      <h2>Projects</h2>
-    </div>
-
-    <div class="project-grid">
-
-      <div class="project-card">
-        <div class="project-card-header">
-          <h3>Subsenate</h3>
-          <a href="https://github.com/doronz2/Subsenate" target="_blank" rel="noopener" class="project-link">GitHub &rarr;</a>
-        </div>
-        <p>
-          A zkSNARK-based e-voting system that randomly selects a community of judges
-          from a pool of eligible voters — cryptographic sortition. Using zero-knowledge
-          proofs, the selection is verifiably random and private: nobody can predict
-          or manipulate who gets chosen, yet anyone can verify the result is fair.
-        </p>
-        <p class="project-bridge">
-          Sortition — random selection of citizen decision-makers — powered Athenian democracy.
-          Subsenate brings it into the 21st century with ZK proofs.
-        </p>
-        <div class="paper-tags">
-          <span class="tag">zkSNARKs</span>
-          <span class="tag">e-voting</span>
-          <span class="tag">Sortition</span>
-          <span class="tag">circom</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-card-header">
-          <h3>Coercion-Resistant Elections</h3>
-          <div style="display:flex;gap:6px;align-items:center">
-            <a href="voting.html" class="project-link" style="background:var(--accent);color:#fff;border-color:var(--accent)">Try it &rarr;</a>
-            <a href="https://github.com/doronz2/CRelections" target="_blank" rel="noopener" class="project-link">GitHub &rarr;</a>
-          </div>
-        </div>
-        <p>
-          A full Rust implementation of coercion-resistant e-voting based on the JCJ protocol
-          and Civitas. Implements the complete cryptographic core: DVRP credential issuance,
-          threshold ElGamal key generation, PET-based duplicate and invalid-credential
-          elimination, a two-pass RPC MixNet with public verifiability, and distributed
-          decryption — all wired into a runnable election pipeline with a web UI.
-        </p>
-        <p class="project-bridge">
-          The key insight of JCJ: a coercer can force you to vote under threat, but cannot
-          prevent you from casting a silent override later. Your real vote always wins.
-        </p>
-        <div class="paper-tags">
-          <span class="tag">JCJ</span>
-          <span class="tag">Civitas</span>
-          <span class="tag">Coercion resistance</span>
-          <span class="tag">Threshold crypto</span>
-          <span class="tag">RPC MixNet</span>
-          <span class="tag">Rust</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- ── Research ── -->
 <section id="research">
   <div class="container">
@@ -325,6 +260,71 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <h2>Projects</h2>
+    </div>
+
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <h3>Subsenate</h3>
+          <a href="https://github.com/doronz2/Subsenate" target="_blank" rel="noopener" class="project-link">GitHub &rarr;</a>
+        </div>
+        <p>
+          A zkSNARK-based e-voting system that randomly selects a community of judges
+          from a pool of eligible voters — cryptographic sortition. Using zero-knowledge
+          proofs, the selection is verifiably random and private: nobody can predict
+          or manipulate who gets chosen, yet anyone can verify the result is fair.
+        </p>
+        <p class="project-bridge">
+          Sortition — random selection of citizen decision-makers — powered Athenian democracy.
+          Subsenate brings it into the 21st century with ZK proofs.
+        </p>
+        <div class="paper-tags">
+          <span class="tag">zkSNARKs</span>
+          <span class="tag">e-voting</span>
+          <span class="tag">Sortition</span>
+          <span class="tag">circom</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <h3>Coercion-Resistant Elections</h3>
+          <div style="display:flex;gap:6px;align-items:center">
+            <a href="voting.html" class="project-link" style="background:var(--accent);color:#fff;border-color:var(--accent)">Try it &rarr;</a>
+            <a href="https://github.com/doronz2/CRelections" target="_blank" rel="noopener" class="project-link">GitHub &rarr;</a>
+          </div>
+        </div>
+        <p>
+          A full Rust implementation of coercion-resistant e-voting based on the JCJ protocol
+          and Civitas. Implements the complete cryptographic core: DVRP credential issuance,
+          threshold ElGamal key generation, PET-based duplicate and invalid-credential
+          elimination, a two-pass RPC MixNet with public verifiability, and distributed
+          decryption — all wired into a runnable election pipeline with a web UI.
+        </p>
+        <p class="project-bridge">
+          The key insight of JCJ: a coercer can force you to vote under threat, but cannot
+          prevent you from casting a silent override later. Your real vote always wins.
+        </p>
+        <div class="paper-tags">
+          <span class="tag">JCJ</span>
+          <span class="tag">Civitas</span>
+          <span class="tag">Coercion resistance</span>
+          <span class="tag">Threshold crypto</span>
+          <span class="tag">RPC MixNet</span>
+          <span class="tag">Rust</span>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
