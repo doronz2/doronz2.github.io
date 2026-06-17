@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doron Zarchy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="container">
+    <span class="nav-name">Doron Zarchy</span>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#democracy">Democracy</a></li>
+      <li><a href="voting.html" style="color:var(--accent);font-weight:600">Try the Demo</a></li>
+      <li><a href="mailto:doron@fhenix.io">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="container">
+    <p class="hero-label">Doron Zarchy</p>
+    <h1 class="hero-joke">
+      I did my PhD on regret minimization.<br>
+      <span class="punchline">I regret it.</span>
+    </h1>
+    <p class="tagline">
+      Cryptographer, networking researcher, and AI tinkerer — currently at
+      <a href="https://fhenix.io" target="_blank" rel="noopener">Fhenix</a>,
+      building confidential smart contracts. Also: very earnestly trying to
+      make the world more democratic.
+    </p>
+    <div class="hero-links">
+      <a href="mailto:doron@fhenix.io" class="btn btn-primary">Get in touch</a>
+      <a href="#research" class="btn btn-ghost">View research</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── Projects ── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <h2>Projects</h2>
+      <span class="section-label">Implemented systems</span>
+    </div>
+
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <h3>Subsenate</h3>
+          <a href="https://github.com/doronz2/Subsenate" target="_blank" rel="noopener" class="project-link">GitHub &rarr;</a>
+        </div>
+        <p>
+          A zkSNARK-based e-voting system that randomly selects a community of judges
+          from a pool of eligible voters — cryptographic sortition. Using zero-knowledge
+          proofs, the selection is verifiably random and private: nobody can predict
+          or manipulate who gets chosen, yet anyone can verify the result is fair.
+        </p>
+        <p class="project-bridge">
+          Sortition — random selection of citizen decision-makers — powered Athenian democracy.
+          Subsenate brings it into the 21st century with ZK proofs.
+        </p>
+        <div class="paper-tags">
+          <span class="tag">zkSNARKs</span>
+          <span class="tag">e-voting</span>
+          <span class="tag">Sortition</span>
+          <span class="tag">circom</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <h3>Coercion-Resistant Elections</h3>
+          <div style="display:flex;gap:6px;align-items:center">
+            <a href="voting.html" class="project-link" style="background:var(--accent);color:#fff;border-color:var(--accent)">Try it &rarr;</a>
+            <a href="https://github.com/doronz2/CRelections" target="_blank" rel="noopener" class="project-link">GitHub &rarr;</a>
+          </div>
+        </div>
+        <p>
+          A full Rust implementation of coercion-resistant e-voting based on the JCJ protocol
+          and Civitas. Implements the complete cryptographic core: DVRP credential issuance,
+          threshold ElGamal key generation, PET-based duplicate and invalid-credential
+          elimination, a two-pass RPC MixNet with public verifiability, and distributed
+          decryption — all wired into a runnable election pipeline with a web UI.
+        </p>
+        <p class="project-bridge">
+          The key insight of JCJ: a coercer can force you to vote under threat, but cannot
+          prevent you from casting a silent override later. Your real vote always wins.
+        </p>
+        <div class="paper-tags">
+          <span class="tag">JCJ</span>
+          <span class="tag">Civitas</span>
+          <span class="tag">Coercion resistance</span>
+          <span class="tag">Threshold crypto</span>
+          <span class="tag">RPC MixNet</span>
+          <span class="tag">Rust</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Research ── -->
+<section id="research">
+  <div class="container">
+    <div class="section-header">
+      <h2>Research</h2>
+      <span class="section-label">Academic work</span>
+    </div>
+
+    <div class="tab-bar" role="tablist" aria-label="Research areas">
+      <button class="tab-btn active" role="tab" aria-selected="true" data-tab="crypto">Cryptography</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="networking">Networking</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="ai">AI Research</button>
+    </div>
+
+    <!-- Cryptography -->
+    <div id="tab-crypto" class="tab-panel active" role="tabpanel">
+      <div class="paper-list">
+
+        <div class="paper-card">
+          <h3>Paper Title · Placeholder</h3>
+          <div class="paper-meta">Authors · Venue · Year</div>
+          <p class="paper-abstract">
+            A short abstract describing the main contribution and results of this paper.
+            Replace this text with the actual abstract or a brief summary.
+          </p>
+          <div class="paper-tags">
+            <span class="tag">FHE</span>
+            <span class="tag">MPC</span>
+          </div>
+        </div>
+
+        <div class="paper-card">
+          <h3>Paper Title · Placeholder</h3>
+          <div class="paper-meta">Authors · Venue · Year</div>
+          <p class="paper-abstract">
+            A short abstract describing the main contribution and results of this paper.
+            Replace this text with the actual abstract or a brief summary.
+          </p>
+          <div class="paper-tags">
+            <span class="tag">ZK Proofs</span>
+            <span class="tag">dBFV</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Networking -->
+    <div id="tab-networking" class="tab-panel" role="tabpanel">
+      <div class="paper-list">
+
+        <div class="paper-card">
+          <h3>Paper Title · Placeholder</h3>
+          <div class="paper-meta">Authors · Venue · Year</div>
+          <p class="paper-abstract">
+            A short abstract describing the main contribution and results of this paper.
+            Replace this text with the actual abstract or a brief summary.
+          </p>
+          <div class="paper-tags">
+            <span class="tag">SDN</span>
+            <span class="tag">Protocols</span>
+          </div>
+        </div>
+
+        <div class="paper-card">
+          <h3>Paper Title · Placeholder</h3>
+          <div class="paper-meta">Authors · Venue · Year</div>
+          <p class="paper-abstract">
+            A short abstract describing the main contribution and results of this paper.
+            Replace this text with the actual abstract or a brief summary.
+          </p>
+          <div class="paper-tags">
+            <span class="tag">Distributed Systems</span>
+            <span class="tag">Routing</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div id="tab-ai" class="tab-panel" role="tabpanel">
+      <div class="paper-list">
+
+        <div class="paper-card">
+          <h3>Paper Title · Placeholder</h3>
+          <div class="paper-meta">Authors · Venue · Year</div>
+          <p class="paper-abstract">
+            A short abstract describing the main contribution and results of this paper.
+            Replace this text with the actual abstract or a brief summary.
+          </p>
+          <div class="paper-tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Privacy</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Current Interests ── -->
+<section id="interests">
+  <div class="container">
+    <div class="section-header">
+      <h2>Current Interests</h2>
+      <span class="section-label">What keeps me up at night</span>
+    </div>
+
+    <div class="interest-grid">
+
+      <div class="interest-card">
+        <div class="interest-icon">🔐</div>
+        <h3>Fully Homomorphic Encryption</h3>
+        <p>Computing on encrypted data without decrypting it first. Yes, it's as weird as it sounds. Yes, it actually works.</p>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">🌐</div>
+        <h3>Confidential Smart Contracts</h3>
+        <p>What if blockchains were private by default? That's not a rhetorical question — I'm actively working on it.</p>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">🤖</div>
+        <h3>AI Safety &amp; Alignment</h3>
+        <p>Teaching very powerful systems to do what we actually want, rather than a creative misinterpretation of it.</p>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">📡</div>
+        <h3>Network Architecture</h3>
+        <p>The internet was designed for resilience and ended up surprisingly fragile. There's room to do better.</p>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">🗳️</div>
+        <h3>e-Democracy</h3>
+        <p>Cryptographic voting protocols that are secret, verifiable, and — crucially — not a disaster to run.</p>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">📖</div>
+        <h3>Open Knowledge</h3>
+        <p>Paywalling scientific papers is a choice, and it's the wrong one.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Democracy ── -->
+<section id="democracy">
+  <div class="container">
+    <div class="section-header">
+      <h2>On Democracy</h2>
+      <span class="section-label">Values &amp; conviction</span>
+    </div>
+
+    <div class="democracy-section">
+      <blockquote>
+        "The cure for the ills of democracy is more democracy."
+      </blockquote>
+
+      <p>
+        I believe that democracy is not just a political system — it is a living
+        commitment to the idea that every person has an equal stake in the decisions
+        that shape their life. That commitment is fragile, and it requires active
+        work to sustain and deepen.
+      </p>
+
+      <p>
+        My technical research often intersects with democratic ideals. I have built
+        two working voting systems: <a href="https://github.com/doronz2/CRelections" target="_blank" rel="noopener">CRelections</a>,
+        a full implementation of coercion-resistant e-voting where your real vote
+        always wins even under physical duress, and
+        <a href="https://github.com/doronz2/Subsenate" target="_blank" rel="noopener">Subsenate</a>,
+        a zkSNARK-based sortition system that randomly selects a community of judges
+        the way ancient Athens did — except with cryptographic proofs. These are not
+        papers. They run. I am drawn to these problems precisely because they are not
+        purely technical — they are deeply political.
+      </p>
+
+      <p>
+        I am particularly interested in institutional design: how constitutions,
+        voting rules, and deliberative processes can be reformed to be more
+        representative, more resistant to capture, and more capable of handling the
+        complexity of modern governance. I believe technology can help — but only
+        if it is designed with democratic values at its core, not bolted on as an
+        afterthought.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <span>Doron Zarchy &mdash; doron@fhenix.io</span>
+    <nav class="footer-links" aria-label="Social links">
+      <a href="mailto:doron@fhenix.io">Email</a>
+      <a href="https://scholar.google.com" target="_blank" rel="noopener">Google Scholar</a>
+      <a href="https://github.com/doronz2" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

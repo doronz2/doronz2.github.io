@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Coercion-Resistant Elections — Doron Zarchy</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* page-specific additions */
+    :root { --max-w: 1100px; --orange: #c2570a; --orange-light: #fff4ed; --red-light: #fff1f0; }
+
+    /* ── status bar ── */
+    .status-bar {
+      display: flex; flex-wrap: wrap; gap: .5rem; align-items: center;
+      margin-bottom: 2rem;
+    }
+    .status-chip {
+      font-size: .72rem; font-weight: 600; padding: .25rem .7rem;
+      border-radius: 20px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--muted);
+    }
+    .status-chip.on  { border-color: #2a7a2a; color: #2a7a2a; background: #f0faf0; }
+    .status-chip.off { border-color: #c0392b; color: #c0392b; background: #fff1f0; }
+    .status-chip.dim { border-color: var(--border); color: var(--muted); }
+    .pulse { display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: currentColor; margin-right: 5px; vertical-align: middle; }
+    .on .pulse  { animation: blink 1.4s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ── two-column layout ── */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media(max-width:760px){ .demo-grid{ grid-template-columns:1fr; } }
+
+    /* ── op-card: same look as project-card but with form controls ── */
+    .op-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .op-card:last-child { margin-bottom: 0; }
+    .op-card h3 {
+      font-size: .9rem; font-weight: 600; margin-bottom: .15rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .op-num {
+      font-size: .68rem; font-weight: 700; background: var(--accent);
+      color: #fff; border-radius: 50%; width: 18px; height: 18px;
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .op-card .op-desc {
+      font-size: .8rem; color: var(--muted); margin-bottom: .9rem;
+      line-height: 1.5;
+    }
+    .op-card label { font-size: .78rem; color: var(--muted); display: block; margin-bottom: 3px; }
+    .op-card select, .op-card input[type=number] {
+      width: 100%; padding: .42rem .7rem;
+      border: 1px solid var(--border); border-radius: 6px;
+      background: var(--bg); color: var(--text);
+      font-size: .85rem; margin-bottom: .7rem; outline: none;
+    }
+    .op-card select:focus, .op-card input:focus { border-color: var(--accent); }
+
+    /* coercion card */
+    .op-card.coercion { border-color: #f5cba7; background: var(--orange-light); }
+    .op-card.coercion .op-num { background: var(--orange); }
+    .op-card.coercion h3 { color: var(--orange); }
+
+    /* reset card */
+    .op-card.reset-card { border-color: #fccbcb; background: var(--red-light); }
+
+    /* ── action buttons ── */
+    .action-btn {
+      display: block; width: 100%; padding: .48rem 1rem;
+      border: none; border-radius: 6px;
+      font-size: .85rem; font-weight: 600; cursor: pointer;
+      transition: opacity .15s;
+    }
+    .action-btn:disabled { opacity: .4; cursor: not-allowed; }
+    .action-btn:not(:disabled):hover { opacity: .85; }
+    .action-btn.primary { background: var(--accent); color: #fff; }
+    .action-btn.coercion-btn { background: var(--orange); color: #fff; }
+    .action-btn.danger  { background: #b91c1c; color: #fff; }
+    .action-btn.outline {
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--border);
+    }
+    .spinner-inline {
+      display:none; width:10px; height:10px; border:2px solid rgba(255,255,255,.3);
+      border-top-color:#fff; border-radius:50%; animation:spin .5s linear infinite;
+      vertical-align:middle; margin-left:6px;
+    }
+    @keyframes spin{ to{transform:rotate(360deg)} }
+
+    /* ── voter chips ── */
+    .voter-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .6rem; }
+    .voter-chip {
+      font-size: .72rem; padding: .2rem .55rem; border-radius: 4px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+    }
+    .voter-chip.registered {
+      border-color: #2a7a2a; background: #f0faf0; color: #2a7a2a;
+    }
+    .voter-chip.has-real  { font-weight: 600; }
+    .voter-chip.has-fake  { border-color: var(--orange); color: var(--orange); }
+
+    /* ── right column ── */
+    .right-col { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    /* ── event log ── */
+    .log-wrap {
+      background: #0d1117; border: 1px solid #30363d; border-radius: 10px;
+      overflow: hidden;
+    }
+    .log-header {
+      padding: .6rem 1rem; border-bottom: 1px solid #30363d;
+      font-size: .72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .08em; color: #8b949e;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .log-clear { font-size:.7rem; color:#8b949e; cursor:pointer; background:none; border:none; }
+    .log-clear:hover { color:#58a6ff; }
+    .log-body {
+      font-family: 'JetBrains Mono','Fira Code',monospace; font-size: .78rem;
+      line-height: 1.65; padding: .9rem 1rem;
+      max-height: 320px; overflow-y: auto;
+      color: #c9d1d9;
+    }
+    .le { margin-bottom: 1px; }
+    .le .ts { color: #484f58; margin-right: .4rem; }
+    .le.info    .msg { color: #c9d1d9; }
+    .le.success .msg { color: #3fb950; }
+    .le.warning .msg { color: #f0883e; }
+    .le.error   .msg { color: #f85149; }
+    .le .pfx { margin-right: .3rem; }
+    .info    .pfx { color:#484f58; }
+    .success .pfx { color:#3fb950; }
+    .warning .pfx { color:#f0883e; }
+    .error   .pfx { color:#f85149; }
+
+    /* ── results ── */
+    .results-wrap {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem 1.4rem;
+    }
+    .results-wrap h3 {
+      font-size: .8rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--muted); margin-bottom: 1rem;
+    }
+    .result-row { display: flex; align-items: center; gap: .75rem; margin-bottom: .6rem; }
+    .result-name { width: 52px; font-size: .85rem; font-weight: 500; }
+    .result-track { flex:1; background: var(--bg); border-radius: 4px; height: 16px; overflow: hidden; }
+    .result-fill {
+      height: 100%; background: var(--accent); border-radius: 4px;
+      transition: width .5s ease;
+    }
+    .result-fill.winner { background: #2a7a2a; }
+    .result-n { width: 22px; font-size: .82rem; font-weight: 600;
+      font-family: monospace; text-align: right; }
+    .result-stats {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      margin-top: .9rem; padding-top: .9rem; border-top: 1px solid var(--border);
+    }
+    .r-stat { font-size: .78rem; color: var(--muted); }
+    .r-stat strong { display: block; font-size: 1rem; color: var(--text); }
+    .winner-note {
+      font-size: .82rem; font-weight: 600; color: #2a7a2a;
+      background: #f0faf0; border: 1px solid #a3d9a3;
+      border-radius: 6px; padding: .45rem .8rem; margin-bottom: .9rem;
+    }
+
+    /* ── offline overlay ── */
+    .offline-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 2rem; text-align: center; margin-bottom: 2rem;
+    }
+    .offline-card h3 { font-family: var(--font-serif); font-weight: normal;
+      font-size: 1.2rem; margin-bottom: .8rem; }
+    .offline-card p { font-size: .875rem; color: var(--muted); margin-bottom: .8rem; line-height:1.6; }
+    .cmd { background: var(--bg); border: 1px solid var(--border); border-radius: 5px;
+      padding: .4rem .8rem; font-family: monospace; font-size: .82rem;
+      color: var(--accent); display: inline-block; margin: .2rem 0; }
+    .retry-btn { margin-top: .9rem; }
+
+    /* page header */
+    .page-header { padding: 2.5rem 0 1.8rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+    .page-header h1 { font-family: var(--font-serif); font-weight: normal;
+      font-size: 1.9rem; letter-spacing: -.02em; margin-bottom: .5rem; }
+    .page-header p { font-size: .92rem; color: var(--muted); max-width: 600px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <div class="container">
+    <a href="index.html" class="nav-name" style="text-decoration:none;color:var(--text)">Doron Zarchy</a>
+    <ul class="nav-links">
+      <li><a href="index.html#research">Research</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#democracy">Democracy</a></li>
+      <li><a href="voting.html" style="color:var(--accent);font-weight:600">Demo</a></li>
+      <li><a href="mailto:doron@fhenix.io">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<div class="container">
+
+  <!-- ── Page header ── -->
+  <div class="page-header">
+    <h1>Coercion-Resistant Elections</h1>
+    <p>
+      A live demo of the Civitas / JCJ cryptographic voting protocol.
+      Register voters, cast real and coerced ballots, then run the full
+      tabulation pipeline — PET deduplication, RPC MixNet anonymisation,
+      threshold decryption, tally.
+    </p>
+  </div>
+
+  <!-- ── Offline notice ── -->
+  <div id="offline-card" class="offline-card" style="display:none">
+    <h3>Server not running</h3>
+    <p>Start the local server to use the demo:</p>
+    <div><span class="cmd">git clone https://github.com/doronz2/CRelections</span></div>
+    <div><span class="cmd">cd CRelections</span></div>
+    <div><span class="cmd">LIBRARY_PATH=/opt/homebrew/lib cargo run -- server</span></div>
+    <p style="margin-top:.8rem;font-size:.8rem">
+      This page will connect automatically once the server is up.
+    </p>
+    <button class="btn btn-ghost retry-btn" onclick="probe()">Retry connection</button>
+  </div>
+
+  <!-- ── Status bar ── -->
+  <div class="status-bar" id="status-bar" style="display:none">
+    <span class="status-chip on" id="chip-conn"><span class="pulse"></span>Connected</span>
+    <span class="status-chip dim" id="chip-setup">not set up</span>
+    <span class="status-chip dim" id="chip-voters">0 voters</span>
+    <span class="status-chip dim" id="chip-ballots">0 ballots</span>
+  </div>
+
+  <!-- ── Main grid ── -->
+  <div class="demo-grid" id="demo-grid" style="display:none">
+
+    <!-- ── LEFT: operation panels ── -->
+    <div class="left-col">
+
+      <!-- 1. Initialize -->
+      <div class="op-card">
+        <h3><span class="op-num">1</span> Initialize Election</h3>
+        <p class="op-desc">
+          Generates a shared KTT key across 3 independent tellers via
+          distributed ElGamal key generation, and publishes the encrypted
+          candidate list.
+        </p>
+        <label for="n-voters">Voter slots</label>
+        <input type="number" id="n-voters" min="1" max="9" value="3"/>
+        <button class="action-btn primary" id="btn-setup" onclick="doSetup()">
+          Initialize Election <span class="spinner-inline" id="sp-setup"></span>
+        </button>
+      </div>
+
+      <!-- 2. Register -->
+      <div class="op-card">
+        <h3><span class="op-num">2</span> Register Voter</h3>
+        <p class="op-desc">
+          Issues credential shares from both registrars with DVRP proofs.
+          The voter verifies the proofs and combines shares into a
+          private credential.
+        </p>
+        <label for="sel-reg">Voter</label>
+        <select id="sel-reg"></select>
+        <button class="action-btn primary" id="btn-reg" onclick="doRegister()">
+          Register <span class="spinner-inline" id="sp-reg"></span>
+        </button>
+        <div class="voter-chips" id="voter-chips"></div>
+      </div>
+
+      <!-- 3. Cast real ballot -->
+      <div class="op-card">
+        <h3><span class="op-num">3</span> Cast Real Ballot</h3>
+        <p class="op-desc">
+          Voter encrypts their credential and vote choice, generates a
+          VotePf proof of knowledge and a ReencPf proof that the choice
+          is one of the published candidates.
+        </p>
+        <label for="sel-voter">Voter</label>
+        <select id="sel-voter"></select>
+        <label for="sel-cand">Candidate</label>
+        <select id="sel-cand">
+          <option value="0">0 — Alice</option>
+          <option value="1">1 — Bob</option>
+          <option value="2">2 — Carol</option>
+        </select>
+        <button class="action-btn primary" id="btn-vote" onclick="doVote(false)">
+          Cast Real Ballot <span class="spinner-inline" id="sp-vote"></span>
+        </button>
+      </div>
+
+      <!-- 4. Coercion demo -->
+      <div class="op-card coercion">
+        <h3><span class="op-num">4</span> Submit Coerced Ballot</h3>
+        <p class="op-desc">
+          Simulates a voter being forced to vote under duress. The ballot
+          uses a <strong>random unregistered credential</strong> — it looks
+          cryptographically valid but will be eliminated by the PET
+          credential check during tabulation. The real ballot wins.
+        </p>
+        <label for="sel-fake-voter">Coerced voter</label>
+        <select id="sel-fake-voter"></select>
+        <label for="sel-fake-cand">Forced choice</label>
+        <select id="sel-fake-cand">
+          <option value="0">0 — Alice</option>
+          <option value="1">1 — Bob</option>
+          <option value="2">2 — Carol</option>
+        </select>
+        <button class="action-btn coercion-btn" id="btn-fake" onclick="doVote(true)">
+          Submit Under Coercion <span class="spinner-inline" id="sp-fake"></span>
+        </button>
+      </div>
+
+      <!-- 5. Tabulate -->
+      <div class="op-card">
+        <h3><span class="op-num">5</span> Tabulate</h3>
+        <p class="op-desc">
+          Runs the full Civitas pipeline: validate proofs → PET
+          duplicate elimination → PET credential check → RPC MixNet
+          anonymisation → distributed decryption → tally.
+          Takes ~30 seconds.
+        </p>
+        <button class="action-btn primary" id="btn-tab" onclick="doTabulate()">
+          Run Tabulation <span class="spinner-inline" id="sp-tab"></span>
+        </button>
+      </div>
+
+      <!-- Reset -->
+      <div class="op-card reset-card">
+        <h3>Reset</h3>
+        <p class="op-desc">Clear all state and start a new election.</p>
+        <button class="action-btn danger" onclick="doReset()">Reset Election</button>
+      </div>
+
+    </div><!-- /left-col -->
+
+    <!-- ── RIGHT: log + results ── -->
+    <div class="right-col">
+
+      <!-- Event log -->
+      <div class="log-wrap">
+        <div class="log-header">
+          <span>Event log</span>
+          <button class="log-clear" onclick="clearLog()">clear</button>
+        </div>
+        <div class="log-body" id="log-body">
+          <div class="le info"><span class="ts">—</span><span class="pfx">›</span> <span class="msg">Waiting for server on localhost:3000…</span></div>
+        </div>
+      </div>
+
+      <!-- Results (hidden until tabulated) -->
+      <div class="results-wrap" id="results-wrap" style="display:none">
+        <h3>Results</h3>
+        <div id="results-body"></div>
+      </div>
+
+    </div><!-- /right-col -->
+
+  </div><!-- /demo-grid -->
+
+</div><!-- /container -->
+</main>
+
+<footer>
+  <div class="container">
+    <span>Doron Zarchy &mdash; doron@fhenix.io</span>
+    <nav class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="https://github.com/doronz2/CRelections" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+const API   = 'http://localhost:3000';
+const CANDS = ['Alice','Bob','Carol'];
+const PFXS  = { info:'›', success:'✓', warning:'⚠', error:'✗' };
+let logCount = 0;
+
+// ── helpers ────────────────────────────────────────────────────────────────
+
+async function api(method, path, body) {
+  const opts = { method, headers: {'Content-Type':'application/json'},
+    signal: AbortSignal.timeout(120000) };
+  if (body) opts.body = JSON.stringify(body);
+  return (await fetch(API + path, opts)).json();
+}
+
+function spin(id, on) {
+  document.getElementById('sp-' + id).style.display = on ? 'inline-block' : 'none';
+}
+
+function escH(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── log ────────────────────────────────────────────────────────────────────
+
+function appendLog(entries) {
+  if (entries.length === logCount) return;
+  const body = document.getElementById('log-body');
+  entries.slice(logCount).forEach(e => {
+    const ts = new Date().toLocaleTimeString('en-GB',
+      {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    const d  = document.createElement('div');
+    d.className = 'le ' + e.level;
+    d.innerHTML = `<span class="ts">${ts}</span>`
+      + `<span class="pfx">${PFXS[e.level]||'›'}</span> `
+      + `<span class="msg">${escH(e.message)}</span>`;
+    body.appendChild(d);
+  });
+  logCount = entries.length;
+  body.scrollTop = body.scrollHeight;
+}
+
+function clearLog() {
+  document.getElementById('log-body').innerHTML = '';
+  logCount = 0;
+}
+
+// ── state rendering ────────────────────────────────────────────────────────
+
+function renderState(s) {
+  // status chips
+  const cs = document.getElementById('chip-setup');
+  if (s.setup) { cs.textContent = 'ready'; cs.className = 'status-chip on'; }
+  else         { cs.textContent = 'not set up'; cs.className = 'status-chip dim'; }
+
+  const reg = s.voters.filter(v => v.registered).length;
+  const cv  = document.getElementById('chip-voters');
+  cv.textContent = reg + '/' + s.voter_count + ' registered';
+  cv.className   = reg > 0 ? 'status-chip on' : 'status-chip dim';
+
+  const cb = document.getElementById('chip-ballots');
+  cb.textContent = s.ballots_in_box + ' ballot' + (s.ballots_in_box === 1 ? '' : 's');
+  cb.className   = s.ballots_in_box > 0 ? 'status-chip on' : 'status-chip dim';
+
+  // voter chips
+  const chips = document.getElementById('voter-chips');
+  chips.innerHTML = '';
+  s.voters.forEach(v => {
+    const c = document.createElement('span');
+    let cls = 'voter-chip';
+    if (v.registered)  cls += ' registered';
+    if (v.fake_votes)  cls += ' has-fake';
+    if (v.real_votes)  cls += ' has-real';
+    c.className   = cls;
+    c.textContent = v.name
+      + (v.real_votes ? ` (${v.real_votes}✓)` : '')
+      + (v.fake_votes ? ` (${v.fake_votes}⚠)` : '');
+    chips.appendChild(c);
+  });
+
+  // repopulate selects
+  ['sel-reg','sel-voter','sel-fake-voter'].forEach(id => {
+    const sel = document.getElementById(id);
+    const cur = sel.value;
+    sel.innerHTML = '';
+    if (!s.setup || s.voters.length === 0) {
+      sel.innerHTML = '<option value="">— set up first —</option>';
+      return;
+    }
+    s.voters.forEach(v => {
+      const o = document.createElement('option');
+      o.value       = v.id;
+      o.textContent = v.name + (v.registered ? ' ✓' : '');
+      sel.appendChild(o);
+    });
+    if ([...sel.options].some(o => o.value === cur)) sel.value = cur;
+  });
+
+  // results
+  if (s.result) renderResults(s.result);
+
+  appendLog(s.log);
+}
+
+function renderResults(r) {
+  const wrap = document.getElementById('results-wrap');
+  const body = document.getElementById('results-body');
+  wrap.style.display = 'block';
+  const max = Math.max(...r.counts, 1);
+  let html = '';
+  if (r.winner !== null && r.winner !== undefined)
+    html += `<div class="winner-note">🏆 ${CANDS[r.winner]} wins with ${r.counts[r.winner]} vote(s)</div>`;
+  r.counts.forEach((n, k) => {
+    const pct = (n / max * 100).toFixed(1);
+    const win = r.winner === k;
+    html += `<div class="result-row">
+      <span class="result-name">${CANDS[k]||k}</span>
+      <div class="result-track"><div class="result-fill${win?' winner':''}" style="width:${pct}%"></div></div>
+      <span class="result-n">${n}</span>
+    </div>`;
+  });
+  html += `<div class="result-stats">
+    <div class="r-stat"><strong>${r.total_cast}</strong>cast</div>
+    <div class="r-stat"><strong>${r.num_duplicates_removed}</strong>dupes removed</div>
+    <div class="r-stat"><strong>${r.num_invalid_credential}</strong>invalid creds</div>
+    <div class="r-stat"><strong>${r.num_counted}</strong>counted</div>
+  </div>`;
+  body.innerHTML = html;
+}
+
+// ── connection probe ───────────────────────────────────────────────────────
+
+let connected = false;
+
+async function probe() {
+  try {
+    const s = await api('GET', '/api/state');
+    if (!connected) {
+      connected = true;
+      document.getElementById('offline-card').style.display = 'none';
+      document.getElementById('status-bar').style.display   = 'flex';
+      document.getElementById('demo-grid').style.display    = 'grid';
+    }
+    renderState(s);
+  } catch (_) {
+    if (connected) {
+      connected = false;
+      document.getElementById('offline-card').style.display = 'block';
+      document.getElementById('status-bar').style.display   = 'none';
+      document.getElementById('demo-grid').style.display    = 'none';
+    } else {
+      document.getElementById('offline-card').style.display = 'block';
+    }
+  }
+}
+
+setInterval(probe, 2000);
+probe();
+
+// ── actions ────────────────────────────────────────────────────────────────
+
+async function doSetup() {
+  const n = parseInt(document.getElementById('n-voters').value) || 3;
+  spin('setup', true);
+  document.getElementById('btn-setup').disabled = true;
+  await api('POST', '/api/setup', { num_voters: n });
+  spin('setup', false);
+  document.getElementById('btn-setup').disabled = false;
+  probe();
+}
+
+async function doRegister() {
+  const id = document.getElementById('sel-reg').value;
+  if (id === '') return;
+  spin('reg', true);
+  document.getElementById('btn-reg').disabled = true;
+  await api('POST', '/api/register', { voter_id: parseInt(id) });
+  spin('reg', false);
+  document.getElementById('btn-reg').disabled = false;
+  probe();
+}
+
+async function doVote(fake) {
+  const voterSel = fake ? 'sel-fake-voter' : 'sel-voter';
+  const candSel  = fake ? 'sel-fake-cand'  : 'sel-cand';
+  const spId     = fake ? 'fake' : 'vote';
+  const btnId    = fake ? 'btn-fake' : 'btn-vote';
+  const id   = document.getElementById(voterSel).value;
+  const cand = parseInt(document.getElementById(candSel).value);
+  if (id === '') return;
+  spin(spId, true);
+  document.getElementById(btnId).disabled = true;
+  await api('POST', '/api/vote', { voter_id: parseInt(id), candidate: cand, fake });
+  spin(spId, false);
+  document.getElementById(btnId).disabled = false;
+  probe();
+}
+
+async function doTabulate() {
+  spin('tab', true);
+  document.getElementById('btn-tab').disabled = true;
+  await api('POST', '/api/tabulate');
+  spin('tab', false);
+  document.getElementById('btn-tab').disabled = false;
+  probe();
+}
+
+async function doReset() {
+  logCount = 0;
+  document.getElementById('log-body').innerHTML = '';
+  document.getElementById('results-wrap').style.display = 'none';
+  await api('POST', '/api/reset');
+  probe();
+}
+</script>
+</body>
+</html>
