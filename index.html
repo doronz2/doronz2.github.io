@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Doron Zarchy is an applied cryptographer at Fhenix working on FHE, threshold cryptography, verifiable systems, networking, and democratic technology." />
+  <link rel="canonical" href="https://doronz2.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Doron Zarchy" />
+  <meta property="og:description" content="Applied cryptographer at Fhenix. Research and systems in cryptography, networking, game theory, and democratic technology." />
+  <meta property="og:url" content="https://doronz2.github.io/" />
+  <meta property="og:image" content="https://doronz2.github.io/assets/images/doron-profile.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Doron Zarchy" />
+  <meta name="twitter:description" content="Applied cryptographer at Fhenix. Research and systems in cryptography, networking, game theory, and democratic technology." />
+  <meta name="twitter:image" content="https://doronz2.github.io/assets/images/doron-profile.jpg" />
   <title>Doron Zarchy</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -16,7 +27,7 @@
       <li><a href="#research">Research</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#democracy">Democracy</a></li>
-      <li><a href="voting.html" class="nav-demo">Try the Demo</a></li>
+      <li><a href="voting.html" class="nav-demo">CRelections demo</a></li>
       <li><a href="mailto:doron@fhenix.io">Contact</a></li>
     </ul>
   </div>
@@ -33,7 +44,7 @@
         Applied Cryptographer at
         <a href="https://fhenix.io" target="_blank" rel="noopener">Fhenix</a>,
         working on FHE, threshold cryptography, zero-knowledge systems, and
-        the occasional democratic institution that could use fewer footguns.
+        verifiable democratic technology.
       </p>
       <div class="credential-lines">
         <p>PhD, Hebrew University of Jerusalem</p>
@@ -45,7 +56,7 @@
       <div class="hero-links">
         <a href="mailto:doron@fhenix.io" class="btn btn-primary">Get in touch</a>
         <a href="#research" class="btn btn-ghost">View research</a>
-        <a href="voting.html" class="btn btn-ghost">Try voting demo</a>
+        <a href="voting.html" class="btn btn-ghost">Open CRelections demo</a>
       </div>
     </div>
     <aside class="profile-card" aria-label="Profile summary">
@@ -84,14 +95,14 @@
     </figure>
 
     <div class="tab-bar" role="tablist" aria-label="Research areas">
-      <button class="tab-btn active" role="tab" aria-selected="true" data-tab="crypto">Cryptography</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-tab="networking">Networking</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-tab="game-theory">Game Theory</button>
-      <button class="tab-btn" role="tab" aria-selected="false" data-tab="ai">AI Research</button>
+      <button id="tab-btn-crypto" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-crypto" tabindex="0" data-tab="crypto">Cryptography</button>
+      <button id="tab-btn-networking" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-networking" tabindex="-1" data-tab="networking">Networking</button>
+      <button id="tab-btn-game-theory" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-game-theory" tabindex="-1" data-tab="game-theory">Game Theory</button>
+      <button id="tab-btn-ai" class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-ai" tabindex="-1" data-tab="ai">AI Research</button>
     </div>
 
     <!-- Cryptography -->
-    <div id="tab-crypto" class="tab-panel active" role="tabpanel">
+    <div id="tab-crypto" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-crypto">
       <div class="paper-list">
 
         <div class="paper-card">
@@ -142,7 +153,7 @@
     </div>
 
     <!-- Networking -->
-    <div id="tab-networking" class="tab-panel" role="tabpanel">
+    <div id="tab-networking" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-networking" hidden>
       <div class="paper-list">
 
         <div class="paper-card">
@@ -204,7 +215,7 @@
     </div>
 
     <!-- Game Theory -->
-    <div id="tab-game-theory" class="tab-panel" role="tabpanel">
+    <div id="tab-game-theory" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-game-theory" hidden>
       <div class="paper-list">
 
         <div class="paper-card">
@@ -251,7 +262,7 @@
     </div>
 
     <!-- AI -->
-    <div id="tab-ai" class="tab-panel" role="tabpanel">
+    <div id="tab-ai" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-ai" hidden>
       <div class="paper-list">
 
         <div class="paper-card">
@@ -387,9 +398,9 @@
         I am particularly interested in institutional design: how constitutions,
         voting rules, and deliberative processes can be reformed to be more
         representative, more resistant to capture, and more capable of handling the
-        complexity of modern governance. I believe technology can help — but only
-        if it is designed with democratic values at its core, not bolted on as an
-        afterthought.
+        complexity of modern governance. I believe technology can help — especially
+        when it reduces the footguns in fragile institutions rather than adding new
+        ones.
       </p>
     </div>
   </div>

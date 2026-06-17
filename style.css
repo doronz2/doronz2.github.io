@@ -27,6 +27,13 @@ body {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+
 /* ── Layout ── */
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
 
@@ -174,12 +181,15 @@ nav .container {
 
 .profile-card {
   justify-self: end;
+  width: min(340px, 100%);
+  aspect-ratio: 1 / 1;
 }
 
 .profile-headshot {
   display: block;
-  width: 340px;
-  height: 340px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
   object-position: 50% 45%;
@@ -328,6 +338,7 @@ section:last-of-type { border-bottom: none; }
 }
 
 .tab-btn:hover:not(.active) { color: var(--text); }
+.tab-btn:focus-visible { position: relative; z-index: 1; }
 
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
@@ -470,7 +481,10 @@ footer .container {
   .nav-links a { font-size: 0.8rem; }
   .hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .hero h1 { font-size: 2rem; }
-  .profile-card { max-width: 360px; }
+  .profile-card {
+    justify-self: start;
+    width: min(280px, 100%);
+  }
   .section-header { flex-direction: column; gap: 0.25rem; }
   .project-grid { grid-template-columns: 1fr; }
   .project-card-header { flex-direction: column; }
