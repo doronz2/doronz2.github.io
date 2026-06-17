@@ -17,7 +17,7 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#interests">Interests</a></li>
       <li><a href="#democracy">Democracy</a></li>
-      <li><a href="voting.html" style="color:var(--accent);font-weight:600">Try the Demo</a></li>
+      <li><a href="voting.html" class="nav-demo">Try the Demo</a></li>
       <li><a href="mailto:doron@fhenix.io">Contact</a></li>
     </ul>
   </div>
@@ -25,22 +25,33 @@
 
 <!-- ── Hero ── -->
 <header class="hero">
-  <div class="container">
-    <p class="hero-label">Doron Zarchy</p>
-    <h1 class="hero-joke">
-      I did my PhD on regret minimization.<br>
-      <span class="punchline">I regret it.</span>
-    </h1>
-    <p class="tagline">
-      Cryptographer, networking researcher, and AI tinkerer — currently at
-      <a href="https://fhenix.io" target="_blank" rel="noopener">Fhenix</a>,
-      building confidential smart contracts. Also: very earnestly trying to
-      make the world more democratic.
-    </p>
-    <div class="hero-links">
-      <a href="mailto:doron@fhenix.io" class="btn btn-primary">Get in touch</a>
-      <a href="#research" class="btn btn-ghost">View research</a>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="hero-label">Doron Zarchy</p>
+      <h1 class="hero-joke">
+        I did my PhD on regret minimization.<br>
+        <span class="punchline">I regret it.</span>
+      </h1>
+      <p class="tagline">
+        Applied cryptography researcher at
+        <a href="https://fhenix.io" target="_blank" rel="noopener">Fhenix</a>,
+        working on FHE, threshold cryptography, zero-knowledge systems, and
+        the occasional democratic institution that could use fewer footguns.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:doron@fhenix.io" class="btn btn-primary">Get in touch</a>
+        <a href="#research" class="btn btn-ghost">View research</a>
+        <a href="voting.html" class="btn btn-ghost">Try voting demo</a>
+      </div>
     </div>
+    <aside class="profile-card" aria-label="Profile summary">
+      <div class="profile-mark">DZ</div>
+      <dl>
+        <div><dt>Focus</dt><dd>Applied cryptography</dd></div>
+        <div><dt>Current</dt><dd>FHE and threshold systems at Fhenix</dd></div>
+        <div><dt>Past</dt><dd>ZenGo, University of Luxembourg, Hebrew University</dd></div>
+      </dl>
+    </aside>
   </div>
 </header>
 
@@ -131,28 +142,46 @@
       <div class="paper-list">
 
         <div class="paper-card">
-          <h3>Paper Title · Placeholder</h3>
-          <div class="paper-meta">Authors · Venue · Year</div>
+          <h3><a href="https://eprint.iacr.org/2026/545" target="_blank" rel="noopener">Aggregator-Based Voting using Proof of Partition</a></h3>
+          <div class="paper-meta">IACR ePrint 2026/545 · accepted to ACM ASIACCS 2026</div>
           <p class="paper-abstract">
-            A short abstract describing the main contribution and results of this paper.
-            Replace this text with the actual abstract or a brief summary.
+            A voting protocol built around proof-of-partition ideas, aimed at
+            making aggregation verifiable while preserving the privacy and
+            structure needed by practical election systems.
           </p>
           <div class="paper-tags">
-            <span class="tag">FHE</span>
-            <span class="tag">MPC</span>
+            <span class="tag">Voting</span>
+            <span class="tag">ZK proofs</span>
+            <span class="tag">Applied crypto</span>
           </div>
         </div>
 
         <div class="paper-card">
-          <h3>Paper Title · Placeholder</h3>
-          <div class="paper-meta">Authors · Venue · Year</div>
+          <h3><a href="https://eprint.iacr.org/2025/2321" target="_blank" rel="noopener">High-Precision Exact FHE Made Simple, General, and Fast</a></h3>
+          <div class="paper-meta">IACR ePrint 2025/2321</div>
           <p class="paper-abstract">
-            A short abstract describing the main contribution and results of this paper.
-            Replace this text with the actual abstract or a brief summary.
+            Work on exact high-precision fully homomorphic encryption, focusing
+            on practical techniques that make encrypted computation simpler to
+            implement and faster to run.
           </p>
           <div class="paper-tags">
-            <span class="tag">ZK Proofs</span>
-            <span class="tag">dBFV</span>
+            <span class="tag">FHE</span>
+            <span class="tag">Exact arithmetic</span>
+            <span class="tag">Cryptographic systems</span>
+          </div>
+        </div>
+
+        <div class="paper-card">
+          <h3>High-Throughput Universally Composable Threshold FHE Decryption</h3>
+          <div class="paper-meta">ACM CCS 2025</div>
+          <p class="paper-abstract">
+            Threshold decryption for FHE systems with a universal composability
+            treatment and an implementation-oriented emphasis on throughput.
+          </p>
+          <div class="paper-tags">
+            <span class="tag">Threshold crypto</span>
+            <span class="tag">FHE</span>
+            <span class="tag">UC security</span>
           </div>
         </div>
 
@@ -164,28 +193,47 @@
       <div class="paper-list">
 
         <div class="paper-card">
-          <h3>Paper Title · Placeholder</h3>
-          <div class="paper-meta">Authors · Venue · Year</div>
+          <h3><a href="https://www.usenix.org/conference/nsdi15/technical-sessions/presentation/dong" target="_blank" rel="noopener">PCC: Re-architecting Congestion Control for Consistent High Performance</a></h3>
+          <div class="paper-meta">Mo Dong, Qingxi Li, Doron Zarchy, Brighten Godfrey, Michael Schapira · NSDI 2015</div>
           <p class="paper-abstract">
-            A short abstract describing the main contribution and results of this paper.
-            Replace this text with the actual abstract or a brief summary.
+            Performance-oriented Congestion Control replaces hardwired TCP
+            reactions with sender-side experiments that directly optimize
+            observed throughput, loss, and stability.
           </p>
           <div class="paper-tags">
-            <span class="tag">SDN</span>
-            <span class="tag">Protocols</span>
+            <span class="tag">Congestion control</span>
+            <span class="tag">Internet protocols</span>
+            <span class="tag">Systems</span>
           </div>
         </div>
 
         <div class="paper-card">
-          <h3>Paper Title · Placeholder</h3>
-          <div class="paper-meta">Authors · Venue · Year</div>
+          <h3><a href="https://dl.acm.org/doi/10.1145/3152434.3152449" target="_blank" rel="noopener">Axiomatizing Congestion Control</a></h3>
+          <div class="paper-meta">Doron Zarchy, Radhika Mittal, Michael Schapira, Scott Shenker · HotNets 2017 / PACM SIGMETRICS 2019</div>
           <p class="paper-abstract">
-            A short abstract describing the main contribution and results of this paper.
-            Replace this text with the actual abstract or a brief summary.
+            An axiomatic treatment of congestion-control objectives that asks
+            what transport protocols should optimize, and what tradeoffs are
+            unavoidable when they do.
           </p>
           <div class="paper-tags">
-            <span class="tag">Distributed Systems</span>
-            <span class="tag">Routing</span>
+            <span class="tag">Network theory</span>
+            <span class="tag">Game theory</span>
+            <span class="tag">Regret minimization</span>
+          </div>
+        </div>
+
+        <div class="paper-card">
+          <h3><a href="https://arxiv.org/abs/1610.01314" target="_blank" rel="noopener">Nash-Peering: A New Techno-Economic Framework for Internet Interconnections</a></h3>
+          <div class="paper-meta">Doron Zarchy, Amogh Dhamdhere, Constantine Dovrolis, Michael Schapira · arXiv 2016</div>
+          <p class="paper-abstract">
+            A proposal for Internet interconnection agreements based on Nash
+            bargaining, intended to make peering economics more flexible and
+            less prone to dispute.
+          </p>
+          <div class="paper-tags">
+            <span class="tag">Peering</span>
+            <span class="tag">Internet economics</span>
+            <span class="tag">Nash bargaining</span>
           </div>
         </div>
 
@@ -197,15 +245,17 @@
       <div class="paper-list">
 
         <div class="paper-card">
-          <h3>Paper Title · Placeholder</h3>
-          <div class="paper-meta">Authors · Venue · Year</div>
+          <h3><a href="https://arxiv.org/abs/1702.07001" target="_blank" rel="noopener">Theoretical and Experimental Analysis of the Canadian Traveler Problem</a></h3>
+          <div class="paper-meta">Doron Zarchy · MSc thesis / arXiv 2017</div>
           <p class="paper-abstract">
-            A short abstract describing the main contribution and results of this paper.
-            Replace this text with the actual abstract or a brief summary.
+            A study of navigation under partial observability, including
+            dependent edge failures, exact solving algorithms, and empirical
+            comparisons for variants of the Canadian Traveler Problem.
           </p>
           <div class="paper-tags">
-            <span class="tag">Machine Learning</span>
-            <span class="tag">Privacy</span>
+            <span class="tag">Planning</span>
+            <span class="tag">Partial observability</span>
+            <span class="tag">Algorithms</span>
           </div>
         </div>
 
@@ -317,7 +367,7 @@
     <span>Doron Zarchy &mdash; doron@fhenix.io</span>
     <nav class="footer-links" aria-label="Social links">
       <a href="mailto:doron@fhenix.io">Email</a>
-      <a href="https://scholar.google.com" target="_blank" rel="noopener">Google Scholar</a>
+      <a href="https://scholar.google.com/scholar?q=%22Doron+Zarchy%22" target="_blank" rel="noopener">Google Scholar</a>
       <a href="https://github.com/doronz2" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </div>

@@ -204,7 +204,7 @@
       <li><a href="index.html#research">Research</a></li>
       <li><a href="index.html#projects">Projects</a></li>
       <li><a href="index.html#democracy">Democracy</a></li>
-      <li><a href="voting.html" style="color:var(--accent);font-weight:600">Demo</a></li>
+      <li><a href="voting.html" class="nav-demo">Demo</a></li>
       <li><a href="mailto:doron@fhenix.io">Contact</a></li>
     </ul>
   </div>
@@ -228,7 +228,7 @@
   <div id="offline-card" class="offline-card" style="display:none">
     <h3>Server not running</h3>
     <p>Start the local server to use the demo:</p>
-    <div><span class="cmd">git clone https://github.com/doronz2/CRelections</span></div>
+    <div><span class="cmd">git clone https://github.com/doronz2/CRelections.git</span></div>
     <div><span class="cmd">cd CRelections</span></div>
     <div><span class="cmd">LIBRARY_PATH=/opt/homebrew/lib cargo run -- server</span></div>
     <p style="margin-top:.8rem;font-size:.8rem">
@@ -397,7 +397,9 @@ async function api(method, path, body) {
   const opts = { method, headers: {'Content-Type':'application/json'},
     signal: AbortSignal.timeout(120000) };
   if (body) opts.body = JSON.stringify(body);
-  return (await fetch(API + path, opts)).json();
+  const res = await fetch(API + path, opts);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
 
 function spin(id, on) {
@@ -550,10 +552,13 @@ async function doSetup() {
   const n = parseInt(document.getElementById('n-voters').value) || 3;
   spin('setup', true);
   document.getElementById('btn-setup').disabled = true;
-  await api('POST', '/api/setup', { num_voters: n });
-  spin('setup', false);
-  document.getElementById('btn-setup').disabled = false;
-  probe();
+  try {
+    await api('POST', '/api/setup', { num_voters: n });
+    probe();
+  } finally {
+    spin('setup', false);
+    document.getElementById('btn-setup').disabled = false;
+  }
 }
 
 async function doRegister() {
@@ -561,10 +566,13 @@ async function doRegister() {
   if (id === '') return;
   spin('reg', true);
   document.getElementById('btn-reg').disabled = true;
-  await api('POST', '/api/register', { voter_id: parseInt(id) });
-  spin('reg', false);
-  document.getElementById('btn-reg').disabled = false;
-  probe();
+  try {
+    await api('POST', '/api/register', { voter_id: parseInt(id) });
+    probe();
+  } finally {
+    spin('reg', false);
+    document.getElementById('btn-reg').disabled = false;
+  }
 }
 
 async function doVote(fake) {
@@ -577,19 +585,25 @@ async function doVote(fake) {
   if (id === '') return;
   spin(spId, true);
   document.getElementById(btnId).disabled = true;
-  await api('POST', '/api/vote', { voter_id: parseInt(id), candidate: cand, fake });
-  spin(spId, false);
-  document.getElementById(btnId).disabled = false;
-  probe();
+  try {
+    await api('POST', '/api/vote', { voter_id: parseInt(id), candidate: cand, fake });
+    probe();
+  } finally {
+    spin(spId, false);
+    document.getElementById(btnId).disabled = false;
+  }
 }
 
 async function doTabulate() {
   spin('tab', true);
   document.getElementById('btn-tab').disabled = true;
-  await api('POST', '/api/tabulate');
-  spin('tab', false);
-  document.getElementById('btn-tab').disabled = false;
-  probe();
+  try {
+    await api('POST', '/api/tabulate');
+    probe();
+  } finally {
+    spin('tab', false);
+    document.getElementById('btn-tab').disabled = false;
+  }
 }
 
 async function doReset() {

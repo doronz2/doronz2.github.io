@@ -67,11 +67,19 @@ nav .container {
 }
 
 .nav-links a:hover { color: var(--accent); text-decoration: none; }
+.nav-links a.nav-demo { color: var(--accent); font-weight: 600; }
 
 /* ── Hero ── */
 .hero {
   padding: 5rem 0 3.5rem;
   border-bottom: 1px solid var(--border);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 2.5rem;
+  align-items: center;
 }
 
 .hero-label {
@@ -114,7 +122,7 @@ nav .container {
 .hero .tagline {
   font-size: 1.0rem;
   color: var(--muted);
-  max-width: 540px;
+  max-width: 600px;
   margin-bottom: 1.75rem;
   line-height: 1.7;
 }
@@ -148,6 +156,48 @@ nav .container {
   border: 1px solid var(--border);
 }
 .btn-ghost:hover { background: var(--accent-light); text-decoration: none; }
+
+.profile-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 14px rgba(26, 26, 26, 0.04);
+}
+
+.profile-mark {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.profile-card dl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.profile-card dt {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.profile-card dd {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #333;
+}
 
 /* ── Sections ── */
 section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
@@ -295,6 +345,8 @@ section:last-of-type { border-bottom: none; }
   line-height: 1.4;
 }
 
+.paper-card h3 a:hover { text-decoration: none; }
+
 .paper-meta {
   font-size: 0.82rem;
   color: var(--muted);
@@ -404,7 +456,15 @@ footer .container {
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
+  nav .container { align-items: flex-start; gap: 0.75rem; }
+  .nav-links { flex-wrap: wrap; gap: 0.65rem 1rem; justify-content: flex-end; }
+  .nav-links a { font-size: 0.8rem; }
+  .hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .hero h1 { font-size: 2rem; }
+  .profile-card { display: none; }
+  .section-header { flex-direction: column; gap: 0.25rem; }
+  .project-grid { grid-template-columns: 1fr; }
+  .project-card-header { flex-direction: column; }
   .tab-bar { overflow-x: auto; }
   footer .container { flex-direction: column; align-items: flex-start; }
 }
