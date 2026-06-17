@@ -165,18 +165,15 @@ nav .container {
   box-shadow: 0 2px 14px rgba(26, 26, 26, 0.04);
 }
 
-.profile-mark {
-  width: 72px;
-  height: 72px;
+.profile-headshot {
+  display: block;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
-  background: var(--accent-light);
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
+  object-fit: cover;
+  object-position: 50% 45%;
   margin-bottom: 1rem;
+  border: 1px solid var(--border);
 }
 
 .profile-card dl {
