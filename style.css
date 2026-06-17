@@ -137,6 +137,11 @@ nav .container {
   margin-bottom: 0.25rem;
 }
 
+.credential-lines a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 .hero-links {
   display: flex;
   gap: 1rem;
