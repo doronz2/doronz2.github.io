@@ -127,10 +127,14 @@ nav .container {
   line-height: 1.7;
 }
 
-.credential-line {
+.credential-lines {
   color: var(--muted);
   font-size: 0.92rem;
   margin-bottom: 1.75rem;
+}
+
+.credential-lines p {
+  margin-bottom: 0.25rem;
 }
 
 .hero-links {
