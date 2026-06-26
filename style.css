@@ -475,32 +475,30 @@ footer .container {
 .footer-links a:hover { color: var(--accent); text-decoration: none; }
 
 /* ── Video embeds ── */
-.video-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
 .video-embed iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
   border-radius: 8px;
   display: block;
+  margin-top: 0.5rem;
 }
 
 .video-label {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--muted);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-@media (max-width: 640px) {
-  .video-row { grid-template-columns: 1fr; }
+.presentation-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent);
 }
 
 /* ── Responsive ── */
