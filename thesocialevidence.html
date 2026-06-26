@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Social Evidence — a browser extension for collaborative fact-checking on news pages." />
+  <title>The Social Evidence — Doron Zarchy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="container">
+    <span class="nav-name"><a href="/" style="color:inherit;text-decoration:none">Doron Zarchy</a></span>
+    <ul class="nav-links">
+      <li><a href="/#research">Research</a></li>
+      <li><a href="/#projects">Secure Election Projects</a></li>
+      <li><a href="/#democracy">Democracy</a></li>
+      <li><a href="voting.html" class="nav-demo">CRelections demo</a></li>
+      <li><a href="mailto:doron@fhenix.io">Email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-copy">
+      <h1 class="hero-joke">The Social Evidence</h1>
+      <p class="tagline">
+        A browser extension for collaborative fact-checking. Highlight any text
+        on a news page, attach a comment linking it to contradicting evidence,
+        and every visitor with the extension sees the same annotations.
+      </p>
+      <div class="hero-links">
+        <a href="https://github.com/doronz2/thesocialevidence" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
+        <a href="/#projects" class="btn btn-ghost">&larr; Back to projects</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ── The Problem ── -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>The Problem</h2>
+    </div>
+    <div class="democracy-section">
+      <p>
+        Public figures contradict themselves constantly — politicians make promises
+        they later reverse, journalists publish claims that conflict with their earlier
+        reporting, institutions issue statements that contradict their own records.
+        These contradictions are often noticed, but rarely documented in a way that
+        is persistent, linkable, or visible to the next reader of the same article.
+      </p>
+      <p>
+        A tweet calling out a contradiction disappears in the feed. A fact-check on
+        a separate website requires the reader to already know it exists. The original
+        source — the article, the quote, the statement — sits unchanged, with no trace
+        of the contradiction embedded in it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ── -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>How It Works</h2>
+    </div>
+
+    <div class="paper-list">
+
+      <div class="paper-card">
+        <h3>1. Install the extension</h3>
+        <p class="paper-abstract">
+          Load the extension into Chrome from the GitHub repo. It activates on
+          every webpage — no configuration required.
+        </p>
+      </div>
+
+      <div class="paper-card">
+        <h3>2. Select text on any news page</h3>
+        <p class="paper-abstract">
+          Highlight a word, phrase, or sentence — a politician's claim, a
+          statistic, a promise. A <strong>COMMENT</strong> button appears on the page.
+        </p>
+      </div>
+
+      <div class="paper-card">
+        <h3>3. Attach a comment</h3>
+        <p class="paper-abstract">
+          Click COMMENT and type your annotation: a link to contradicting evidence,
+          a prior statement, a correction, or context the article omits.
+        </p>
+      </div>
+
+      <div class="paper-card">
+        <h3>4. It's visible to everyone</h3>
+        <p class="paper-abstract">
+          The annotation is saved to a shared database. Any other visitor with the
+          extension who loads the same URL sees the text highlighted in orange. Clicking
+          it shows your comment. The original article now carries the record.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Architecture ── -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>Architecture</h2>
+      <span class="section-label">Technical design</span>
+    </div>
+    <div class="democracy-section">
+
+      <p>
+        The extension uses the browser's
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range" target="_blank" rel="noopener">Range API</a>
+        to record the exact position of selected text as a DOM path — a sequence of
+        child indices from the document body to the selected node. This path is stored
+        alongside the page URL and the comment, so the highlight can be reconstructed
+        precisely when the page is next loaded.
+      </p>
+
+      <p>
+        The backend is a Node.js/Express API backed by MongoDB Atlas. Two endpoints
+        handle everything: one to save an annotation, one to fetch all annotations for
+        a given URL. The API is deployed on Railway and is open — anyone with the
+        extension can read and write annotations on any page.
+      </p>
+
+      <div class="contribution-callout" style="margin-top:1.5rem">
+        <p><strong>Stack:</strong> Chrome Extension (Manifest V2) · Vanilla JS · Node.js · Express · Mongoose · MongoDB Atlas · Railway</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── The Idea ── -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>The Idea</h2>
+    </div>
+    <div class="democracy-section">
+      <blockquote>
+        "Accountability needs infrastructure — not just the claim that a politician
+        contradicted themselves, but a persistent, linkable annotation anyone can see
+        on the original source."
+      </blockquote>
+      <p>
+        The Social Evidence started as a website for cataloguing inconsistencies between
+        what public figures say and what the evidence shows. It converged into a browser
+        extension because the most useful place to surface a contradiction is <em>on the
+        original text</em> — not on a separate fact-checking site the reader will never
+        find.
+      </p>
+      <p>
+        The design is deliberately minimal: no accounts, no voting, no algorithmic
+        ranking. Just annotations on URLs, visible to everyone who looks.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Install ── -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>Try It</h2>
+    </div>
+    <div class="democracy-section">
+      <p>The extension is not yet on the Chrome Web Store. To install it manually:</p>
+      <ol style="margin-top:1rem;margin-left:1.5rem;line-height:2">
+        <li>Clone or download the repo from <a href="https://github.com/doronz2/thesocialevidence" target="_blank" rel="noopener">GitHub</a></li>
+        <li>Open Chrome and go to <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">chrome://extensions</code></li>
+        <li>Enable <strong>Developer mode</strong> (top-right toggle)</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">extension/</code> folder</li>
+        <li>Visit any news page — select text and click <strong>COMMENT</strong></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <span>Doron Zarchy</span>
+    <nav class="footer-links" aria-label="Social links">
+      <a href="mailto:doron@fhenix.io">Work email</a>
+      <a href="mailto:doronz@gmail.com">Personal email</a>
+      <a href="https://scholar.google.com/scholar?q=%22Doron+Zarchy%22" target="_blank" rel="noopener">Google Scholar</a>
+      <a href="https://github.com/doronz2" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
