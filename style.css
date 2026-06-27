@@ -484,6 +484,25 @@ footer .container {
 .footer-links a { color: var(--muted); }
 .footer-links a:hover { color: var(--accent); text-decoration: none; }
 
+/* ── Hebrew name ── */
+.hebrew-name {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.55em;
+  font-weight: 400;
+  color: var(--muted);
+  vertical-align: baseline;
+}
+
+@media (max-width: 600px) {
+  .hebrew-name {
+    display: block;
+    margin-left: 0;
+    margin-top: 0.25rem;
+    font-size: 0.65em;
+  }
+}
+
 /* ── Video embeds ── */
 .video-embed iframe {
   width: 100%;
