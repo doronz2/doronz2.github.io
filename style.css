@@ -488,7 +488,7 @@ footer .container {
 .hebrew-name {
   display: inline-block;
   margin-left: 0.5rem;
-  font-size: 0.55em;
+  font-size: 0.75em;
   font-weight: 400;
   color: var(--muted);
   vertical-align: baseline;
@@ -499,7 +499,7 @@ footer .container {
     display: block;
     margin-left: 0;
     margin-top: 0.25rem;
-    font-size: 0.65em;
+    font-size: 0.85em;
   }
 }
 
