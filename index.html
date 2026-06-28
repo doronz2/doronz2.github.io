@@ -366,29 +366,38 @@
 
     <div class="democracy-section">
       <p>
-        To me, democracy is more than a form of government. It is a mechanism for
-        giving people real influence over the decisions that affect their lives. It is
-        also a delicate mechanism: easy to undermine, but much harder to design so
-        that it is fair, resilient, and trustworthy.
+        To me, democracy is more than a form of government. It is a way of giving
+        people real influence over the decisions that affect their lives. It is also
+        delicate: easy to undermine, and much harder to design so that it is fair,
+        resilient, and trustworthy.
       </p>
 
       <p>
-        Much of my work in cryptography is motivated by this challenge. I built two
-        working voting systems. <a href="https://github.com/doronz2/CRelections" target="_blank" rel="noopener">CRelections</a>
-        is a coercion-resistant electronic voting system in which a voter's genuine
-        choice can prevail even if they are forced to vote differently.
+        This challenge has motivated much of my work in cryptography. I am interested
+        in how cryptographic protocols can strengthen democratic institutions by
+        reducing the need to trust the people who operate them, while preserving
+        privacy, fairness, and public verifiability.
+      </p>
+
+      <p>
+        I have explored this idea from several directions.
+        <a href="https://eprint.iacr.org/2026/545" target="_blank" rel="noopener">Aggios</a>
+        is a protocol I co-designed to make <strong>large-scale direct democracy</strong>
+        more practical. It is built around a new zero-knowledge proof primitive called
+        a proof of partition, which allows citizens to participate in frequent decisions
+        while preserving privacy and public verifiability.
         <a href="https://github.com/doronz2/Subsenate" target="_blank" rel="noopener">Subsenate</a>
         is a sortition system based on zero-knowledge proofs that randomly selects
-        judges from a pool of eligible citizens — an idea inspired by ancient Athens,
-        but implemented with modern cryptography.
+        citizen judges from a pool of eligible participants — an ancient idea
+        implemented with modern cryptography. I also built
+        <a href="https://dl.acm.org/doi/10.1145/1102199.1102209" target="_blank" rel="noopener">CRelections</a>,
+        a complete implementation of a coercion-resistant electronic voting system,
+        demonstrating how advanced voting protocols can be turned into practical software.
       </p>
 
       <p>
-        The question that motivates me is how
-        to build democratic processes that people can trust even when they do not trust
-        the people operating them. To me, one of the most important promises of
-        cryptography is that it can reduce the need to trust authorities while
-        preserving fairness, security, and verifiability.
+        The question that motivates me is simple: how can we build democratic processes
+        that people can trust, even when they do not trust the authorities running them?
       </p>
     </div>
   </div>
