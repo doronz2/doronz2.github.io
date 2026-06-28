@@ -84,7 +84,7 @@ nav .container {
 }
 
 .nav-links a:hover { color: var(--accent); text-decoration: none; }
-.nav-links a.nav-demo { color: var(--accent); font-weight: 600; }
+.nav-links a.nav-demo { color: var(--muted); font-weight: 500; }
 
 /* ── Hero ── */
 .hero {
