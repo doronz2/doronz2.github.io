@@ -37,6 +37,7 @@
       </p>
       <div class="hero-links">
         <a href="downloads/thesocialevidence-extension.zip" download class="btn btn-primary">Download the extension (.zip)</a>
+        <a href="#android" class="btn btn-ghost">Android app</a>
         <a href="https://github.com/doronz2/thesocialevidence" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub</a>
         <a href="/#projects" class="btn btn-ghost">&larr; Back to projects</a>
       </div>
@@ -127,23 +128,21 @@
     <div class="democracy-section">
 
       <p>
-        The extension uses the browser's
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range" target="_blank" rel="noopener">Range API</a>
-        to record the exact position of selected text as a DOM path — a sequence of
-        child indices from the document body to the selected node. This path is stored
-        alongside the page URL and the comment, so the highlight can be reconstructed
-        precisely when the page is next loaded.
+        Highlights are anchored by their exact text plus ~60 characters of surrounding
+        context, rather than by brittle DOM positions — so annotations survive page
+        edits, ads, and layout changes, and reconstruct reliably for every visitor.
       </p>
 
       <p>
-        The backend is a Node.js/Express API backed by MongoDB Atlas. Two endpoints
-        handle everything: one to save an annotation, one to fetch all annotations for
-        a given URL. The API is deployed on Railway and is open — anyone with the
-        extension can read and write annotations on any page.
+        The backend is a Node.js/Express API backed by MongoDB Atlas, deployed on
+        Google App Engine. It is open — anyone with the extension can read and write
+        annotations on any page. When a new quote is saved, a bot compares it against
+        prior statements from the same domain using Claude and posts an automatic
+        comment when it detects a contradiction.
       </p>
 
       <div class="contribution-callout" style="margin-top:1.5rem">
-        <p><strong>Stack:</strong> Chrome Extension (Manifest V2) · Vanilla JS · Node.js · Express · Mongoose · MongoDB Atlas · Railway</p>
+        <p><strong>Stack:</strong> Chrome Extension (Manifest V3) · Vanilla JS · Android (Kotlin + WebView) · Node.js · Express · Mongoose · MongoDB Atlas · Google App Engine · Claude API</p>
       </div>
 
     </div>
@@ -195,6 +194,31 @@
       <p style="margin-top:1rem">
         Prefer the source? It's also on
         <a href="https://github.com/doronz2/thesocialevidence" target="_blank" rel="noopener">GitHub</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Android ── -->
+<section id="android">
+  <div class="container">
+    <div class="section-header">
+      <h2>Android App</h2>
+      <span class="section-label">In development</span>
+    </div>
+    <div class="democracy-section">
+      <p>
+        The Social Evidence is also available as an Android app — a lightweight
+        browser that injects the same annotation layer into every page you visit.
+        Highlights and comments are shared with extension users through the same
+        backend, and you can share an article from your regular browser straight
+        to the app to see its annotations.
+      </p>
+      <p>
+        The app is not yet on the Play Store. The full source code is on
+        <a href="https://github.com/doronz2/thesocialevidence/tree/master/android-app" target="_blank" rel="noopener">GitHub</a>
+        — open the <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">android-app/</code>
+        folder in Android Studio to build and run it. A downloadable APK is coming soon.
       </p>
     </div>
   </div>
