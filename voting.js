@@ -107,13 +107,24 @@ function renderResults(r) {
   const wrap = document.getElementById('results-wrap');
   const body = document.getElementById('results-body');
   wrap.style.display = 'block';
-  const max = Math.max(...r.counts, 1);
+  const top = Math.max(...r.counts, 0);
+  const max = Math.max(top, 1);
+  const leaders = top > 0
+    ? r.counts.reduce((acc, n, k) => (n === top ? [...acc, k] : acc), [])
+    : [];
   let html = '';
-  if (r.winner !== null && r.winner !== undefined)
-    html += `<div class="winner-note">🏆 ${CANDS[r.winner]} wins with ${r.counts[r.winner]} vote(s)</div>`;
+  if (leaders.length === 1) {
+    html += `<div class="winner-note">🏆 ${CANDS[leaders[0]]} wins with ${top} vote(s)</div>`;
+  } else if (leaders.length > 1) {
+    const names = leaders.map(k => CANDS[k] || k);
+    const list  = names.length === 2
+      ? names.join(' and ')
+      : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+    html += `<div class="winner-note">🤝 Tie between ${list} with ${top} vote(s) each</div>`;
+  }
   r.counts.forEach((n, k) => {
     const pct = (n / max * 100).toFixed(1);
-    const win = r.winner === k;
+    const win = leaders.includes(k);
     html += `<div class="result-row">
       <span class="result-name">${CANDS[k]||k}</span>
       <div class="result-track"><div class="result-fill${win?' winner':''}" style="width:${pct}%"></div></div>
