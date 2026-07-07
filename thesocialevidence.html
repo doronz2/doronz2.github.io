@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="The Social Evidence — a browser extension for collaborative fact-checking on news pages." />
-  <title>The Social Evidence — Doron Zarchy</title>
+  <meta name="description" content="The Social Evidence: a browser extension for collaborative fact-checking on news pages." />
+  <title>The Social Evidence | Doron Zarchy</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -55,7 +55,7 @@
     </div>
     <div class="democracy-section">
       <p>
-        Public figures contradict themselves constantly — politicians make promises
+        Public figures contradict themselves constantly: politicians make promises
         they later reverse, journalists publish claims that conflict with their earlier
         reporting, institutions issue statements that contradict their own records.
         These contradictions are often noticed, but rarely documented in a way that
@@ -64,7 +64,7 @@
       <p>
         A tweet calling out a contradiction disappears in the feed. A fact-check on
         a separate website requires the reader to already know it exists. The original
-        source — the article, the quote, the statement — sits unchanged, with no trace
+        source (the article, the quote, the statement) sits unchanged, with no trace
         of the contradiction embedded in it.
       </p>
     </div>
@@ -84,7 +84,7 @@
         <h3>1. Install the extension</h3>
         <p class="paper-abstract">
           <a href="downloads/thesocialevidence-extension.zip" download>Download the extension</a>
-          and load it into Chrome. It activates on every webpage — no
+          and load it into Chrome. It activates on every webpage, no
           configuration required.
         </p>
       </div>
@@ -92,7 +92,7 @@
       <div class="paper-card">
         <h3>2. Select text on any news page</h3>
         <p class="paper-abstract">
-          Highlight a word, phrase, or sentence — a politician's claim, a
+          Highlight a word, phrase, or sentence: a politician's claim, a
           statistic, a promise. A <strong>COMMENT</strong> button appears on the page.
         </p>
       </div>
@@ -129,13 +129,13 @@
 
       <p>
         Highlights are anchored by their exact text plus ~60 characters of surrounding
-        context, rather than by brittle DOM positions — so annotations survive page
+        context, rather than by brittle DOM positions, so annotations survive page
         edits, ads, and layout changes, and reconstruct reliably for every visitor.
       </p>
 
       <p>
         The backend is a Node.js/Express API backed by MongoDB Atlas, deployed on
-        Google App Engine. It is open — anyone with the extension can read and write
+        Google App Engine. It is open: anyone with the extension can read and write
         annotations on any page. When a new quote is saved, a bot compares it against
         prior statements from the same domain using Claude and posts an automatic
         comment when it detects a contradiction.
@@ -157,7 +157,7 @@
     </div>
     <div class="democracy-section">
       <blockquote>
-        "Accountability needs infrastructure — not just the claim that a politician
+        "Accountability needs infrastructure, not just the claim that a politician
         contradicted themselves, but a persistent, linkable annotation anyone can see
         on the original source."
       </blockquote>
@@ -165,7 +165,7 @@
         The Social Evidence started as a website for cataloguing inconsistencies between
         what public figures say and what the evidence shows. It converged into a browser
         extension because the most useful place to surface a contradiction is <em>on the
-        original text</em> — not on a separate fact-checking site the reader will never
+        original text</em>, not on a separate fact-checking site the reader will never
         find.
       </p>
       <p>
@@ -185,11 +185,11 @@
     <div class="democracy-section">
       <p>The extension is not yet on the Chrome Web Store. To install it:</p>
       <ol style="margin-top:1rem;margin-left:1.5rem;line-height:2">
-        <li><a href="downloads/thesocialevidence-extension.zip" download><strong>Download the extension (.zip)</strong></a> and unzip it — you'll get an <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">extension/</code> folder</li>
+        <li><a href="downloads/thesocialevidence-extension.zip" download><strong>Download the extension (.zip)</strong></a> and unzip it; you'll get an <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">extension/</code> folder</li>
         <li>Open Chrome and go to <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">chrome://extensions</code></li>
         <li>Enable <strong>Developer mode</strong> (top-right toggle)</li>
         <li>Click <strong>Load unpacked</strong> and select the unzipped <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">extension/</code> folder</li>
-        <li>Visit any news page — select text and click <strong>COMMENT</strong></li>
+        <li>Visit any news page, select text and click <strong>COMMENT</strong></li>
       </ol>
       <p style="margin-top:1rem">
         Prefer the source? It's also on
@@ -208,7 +208,7 @@
     </div>
     <div class="democracy-section">
       <p>
-        The Social Evidence is also available as an Android app — a lightweight
+        The Social Evidence is also available as an Android app: a lightweight
         browser that injects the same annotation layer into every page you visit.
         Highlights and comments are shared with extension users through the same
         backend, and you can share an article from your regular browser straight
@@ -216,8 +216,8 @@
       </p>
       <p>
         The app is not yet on the Play Store. The full source code is on
-        <a href="https://github.com/doronz2/thesocialevidence/tree/master/android-app" target="_blank" rel="noopener">GitHub</a>
-        — open the <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">android-app/</code>
+        <a href="https://github.com/doronz2/thesocialevidence/tree/master/android-app" target="_blank" rel="noopener">GitHub</a>;
+        open the <code style="background:var(--tag-bg);padding:2px 6px;border-radius:4px">android-app/</code>
         folder in Android Studio to build and run it. A downloadable APK is coming soon.
       </p>
     </div>

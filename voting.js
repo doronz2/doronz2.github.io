@@ -85,7 +85,7 @@ function renderState(s) {
     const cur = sel.value;
     sel.innerHTML = '';
     if (!s.setup || s.voters.length === 0) {
-      sel.innerHTML = '<option value="">— set up first —</option>';
+      sel.innerHTML = '<option value="">(set up first)</option>';
       return;
     }
     s.voters.forEach(v => {

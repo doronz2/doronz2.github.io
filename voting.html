@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>CRelections Local Demo | Doron Zarchy</title>
-  <meta name="description" content="CRelections local demo by Doron Zarchy — a full implementation of coercion-resistant e-voting based on the JCJ protocol, threshold ElGamal, and cryptographic credential issuance." />
+  <meta name="description" content="CRelections local demo by Doron Zarchy: a full implementation of coercion-resistant e-voting based on the JCJ protocol, threshold ElGamal, and cryptographic credential issuance." />
   <link rel="canonical" href="https://doronzarchy.com/voting.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="CRelections Local Demo | Doron Zarchy" />
@@ -227,7 +227,7 @@
     <p>
       A live demo of the Civitas / JCJ cryptographic voting protocol.
       Register voters, cast real and coerced ballots, then run the full
-      tabulation pipeline — PET deduplication, RPC MixNet anonymisation,
+      tabulation pipeline: PET deduplication, RPC MixNet anonymisation,
       threshold decryption, tally.
     </p>
   </div>
@@ -302,9 +302,9 @@
         <select id="sel-voter"></select>
         <label for="sel-cand">Candidate</label>
         <select id="sel-cand">
-          <option value="0">0 — Alice</option>
-          <option value="1">1 — Bob</option>
-          <option value="2">2 — Carol</option>
+          <option value="0">0 - Alice</option>
+          <option value="1">1 - Bob</option>
+          <option value="2">2 - Carol</option>
         </select>
         <button class="action-btn primary" id="btn-vote">
           Cast Real Ballot <span class="spinner-inline" id="sp-vote"></span>
@@ -316,7 +316,7 @@
         <h3><span class="op-num">4</span> Submit Coerced Ballot</h3>
         <p class="op-desc">
           Simulates a voter being forced to vote under duress. The ballot
-          uses a <strong>random unregistered credential</strong> — it looks
+          uses a <strong>random unregistered credential</strong>; it looks
           cryptographically valid but will be eliminated by the PET
           credential check during tabulation. The real ballot wins.
         </p>
@@ -324,9 +324,9 @@
         <select id="sel-fake-voter"></select>
         <label for="sel-fake-cand">Forced choice</label>
         <select id="sel-fake-cand">
-          <option value="0">0 — Alice</option>
-          <option value="1">1 — Bob</option>
-          <option value="2">2 — Carol</option>
+          <option value="0">0 - Alice</option>
+          <option value="1">1 - Bob</option>
+          <option value="2">2 - Carol</option>
         </select>
         <button class="action-btn coercion-btn" id="btn-fake">
           Submit Under Coercion <span class="spinner-inline" id="sp-fake"></span>
@@ -366,7 +366,7 @@
           <button class="log-clear">clear</button>
         </div>
         <div class="log-body" id="log-body">
-          <div class="le info"><span class="ts">—</span><span class="pfx">›</span> <span class="msg">Waiting for server on localhost:3000…</span></div>
+          <div class="le info"><span class="ts">-</span><span class="pfx">›</span> <span class="msg">Waiting for server on localhost:3000…</span></div>
         </div>
       </div>
 
@@ -385,7 +385,7 @@
 
 <footer>
   <div class="container">
-    <span>Doron Zarchy &mdash; doronz@gmail.com</span>
+    <span>Doron Zarchy · doronz@gmail.com</span>
     <nav class="footer-links">
       <a href="index.html">Home</a>
       <a href="https://github.com/doronz2/CRelections" target="_blank" rel="noopener">GitHub</a>

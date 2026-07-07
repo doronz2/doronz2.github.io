@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aggios — Aggregator-Based Voting Demo</title>
+<title>Aggios: Aggregator-Based Voting Demo</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -56,7 +56,7 @@
       Aggios is an aggregator-based (proxy) voting protocol. Voters do not post votes
       on-chain; instead each voter <em>delegates</em> to exactly one aggregator of their
       choice. Aggregators collect votes, publish a tally, and prove the tally correct with
-      an <strong>EPA proof</strong> — a succinct proof that a committed vector of voter
+      an <strong>EPA proof</strong>, a succinct proof that a committed vector of voter
       tokens is partitioned into disjoint, labeled subsets of publicly claimed sizes
       (one subset per candidate, plus internal NO_VOTE and PAD subsets).
       Validators verify the proofs; the final result sums only verified aggregators.
@@ -70,14 +70,14 @@
     </div>
     <h3>Cryptography in this demo</h3>
     <ul>
-      <li><strong>BLS delegation signatures</strong> — voters sign
+      <li><strong>BLS delegation signatures</strong>: voters sign
         <code>"AGGIOS_DELEGATION" || election_id || aggregator_id</code> binding them to one aggregator.</li>
-      <li><strong>Registration tokens</strong> — τ<sub>i</sub> = skv<sub>i</sub> · B<sub>i</sub>, where
+      <li><strong>Registration tokens</strong>: τ<sub>i</sub> = skv<sub>i</sub> · B<sub>i</sub>, where
         B<sub>i</sub> is the KZG commitment to the voter's Lagrange slot; validators rebuild the
         committed vector as Σ τ<sub>i</sub>.</li>
-      <li><strong>EqLog proofs</strong> — cross-group proof that τ<sub>i</sub> and the voting key
+      <li><strong>EqLog proofs</strong>: cross-group proof that τ<sub>i</sub> and the voting key
         pkv<sub>i</sub> use the same secret scalar.</li>
-      <li><strong>EPA proof of partition</strong> — the existing EPA implementation, used strictly
+      <li><strong>EPA proof of partition</strong>: the existing EPA implementation, used strictly
         as a black box, proves the tally partitions the committed token vector.</li>
     </ul>
     <p class="note">
@@ -237,7 +237,7 @@
 </main>
 
 <footer>
-  Basic Aggios demo &mdash; full implementation source:
+  Basic Aggios demo · full implementation source:
   <a href="https://github.com/doronz2/Aggios_implementation" target="_blank" rel="noopener">doronz2/Aggios_implementation</a>.
   EPA prover/verifier used as an existing black box
   (<a href="https://github.com/mariuslp/aggios_epa_benchmark" target="_blank" rel="noopener">aggios_epa_benchmark</a>).
