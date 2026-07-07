@@ -436,6 +436,76 @@ section:last-of-type { border-bottom: none; }
   border-radius: 4px;
 }
 
+.tag.warn {
+  background: #fdf3e3;
+  color: #9a6a1f;
+}
+
+/* ── Featured system ── */
+.featured-card {
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 1.75rem;
+  box-shadow: 0 2px 14px rgba(45, 90, 142, 0.10);
+}
+
+.featured-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.featured-card h2 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+
+.featured-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+.featured-meta strong { color: var(--text); font-weight: 600; }
+
+.featured-card > p {
+  font-size: 0.92rem;
+  color: #444;
+  line-height: 1.6;
+  max-width: 640px;
+  margin-bottom: 1rem;
+}
+
+.featured-card .hero-links { margin-bottom: 0.9rem; }
+
+/* ── Why it matters ── */
+.why-matters {
+  font-size: 0.8rem;
+  background: var(--accent-light);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  color: #33475c;
+  line-height: 1.55;
+}
+
+.why-matters strong { color: var(--accent); }
+
+/* ── Built systems subsection ── */
+.subsection-header {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  margin: 2.25rem 0 1rem;
+}
+
 /* ── Democracy section ── */
 .democracy-section {
   background: var(--surface);
