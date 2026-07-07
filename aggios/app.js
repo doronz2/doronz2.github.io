@@ -77,13 +77,13 @@ function pill(text, cls) {
 }
 
 function fmtMs(ms) {
-  if (ms == null) return "-";
+  if (ms == null) return "—";
   if (ms < 1000) return `${ms} ms`;
   return `${(ms / 1000).toFixed(2)} s`;
 }
 
 function fmtBytes(b) {
-  if (b == null) return "-";
+  if (b == null) return "—";
   if (b < 1024) return `${b} B`;
   if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} KB`;
   return `${(b / 1024 / 1024).toFixed(2)} MB`;
@@ -118,7 +118,7 @@ async function refreshElectionList() {
     ? data.elections
         .map((e) => `<option value="${esc(e.election_id)}">${esc(e.title)} (${esc(e.phase)})</option>`)
         .join("")
-    : `<option value="">(none)</option>`;
+    : `<option value="">— none —</option>`;
   if (prev && data.elections.some((e) => e.election_id === prev)) {
     sel.value = prev;
   } else if (data.elections.length) {
@@ -136,9 +136,12 @@ $("#election-select").addEventListener("change", (e) => {
 
 $("#refresh-btn").addEventListener("click", () => refreshAll());
 
+let lastRenderedState = "";
+
 async function refreshElection() {
   if (!currentElection) {
     electionData = null;
+    lastRenderedState = "";
     renderAll();
     return;
   }
@@ -147,6 +150,11 @@ async function refreshElection() {
   } catch (err) {
     electionData = null;
   }
+  // Skip the re-render when nothing changed (e.g. background polling), so
+  // in-progress dropdown selections and focus are not clobbered.
+  const state = JSON.stringify(electionData);
+  if (state === lastRenderedState) return;
+  lastRenderedState = state;
   renderAll();
 }
 
@@ -388,7 +396,7 @@ function renderOverview() {
   tallyEl.innerHTML = e.verified_global_tally
     ? `<h3>Verified global tally (verified aggregators only; NO_VOTE/PAD excluded)</h3>` +
       tallyBars(e.verified_global_tally, e.election.candidates)
-    : `<p class="muted">No verified tally yet. Run proofs and verification.</p>`;
+    : `<p class="muted">No verified tally yet — run proofs and verification.</p>`;
 }
 
 function renderAdmin() {
@@ -428,6 +436,19 @@ function statusPill(a) {
 
 function renderVoters() {
   const el = $("#voter-table");
+  // Preserve not-yet-submitted dropdown choices (aggregator/candidate per
+  // voter) across re-renders, so acting on one voter does not reset the
+  // others' selections.
+  const savedSelections = {};
+  el.querySelectorAll("select").forEach((s) => { savedSelections[s.id] = s.value; });
+  const restoreSelections = () => {
+    el.querySelectorAll("select").forEach((s) => {
+      const saved = savedSelections[s.id];
+      if (saved !== undefined && [...s.options].some((o) => o.value === saved)) {
+        s.value = saved;
+      }
+    });
+  };
   if (!electionData) { el.innerHTML = `<p class="muted">Select an election first.</p>`; return; }
   const e = electionData;
   if (!e.voters.length) { el.innerHTML = `<p class="muted">No demo voters yet.</p>`; return; }
@@ -450,6 +471,7 @@ function renderVoters() {
           : `<span class="muted">register first</span>`}</td>
       <td><button class="ghost" onclick="checkReceipt('${esc(v.voter_id)}')">Check</button></td>
     </tr>`).join("") + `</tbody></table>`;
+  restoreSelections();
 }
 
 function renderAggregators() {
@@ -458,18 +480,18 @@ function renderAggregators() {
   const e = electionData;
   el.innerHTML = e.aggregators.map((a) => {
     const counts = e.election.candidates
-      .map((c) => `<span class="k">${esc(c.name)}</span><span class="v">${a.candidate_counts[c.id] ?? "-"}</span>`)
+      .map((c) => `<span class="k">${esc(c.name)}</span><span class="v">${a.candidate_counts[c.id] ?? "—"}</span>`)
       .join("");
     return `<div class="card">
       <h2>${esc(a.aggregator_id)} ${statusPill(a)}</h2>
       <div class="stat-grid">
         <span class="k">Registered voters</span><span class="v">${a.registered_voters}</span>
         <span class="k">Votes received</span><span class="v">${a.votes_received}</span>
-        <span class="k">Domain size</span><span class="v">${a.domain_size ?? "-"}</span>
-        <span class="k">PAD count</span><span class="v">${a.pad_count ?? "-"}</span>
-        <span class="k">NO_VOTE count</span><span class="v">${a.no_vote_count ?? "-"}</span>
+        <span class="k">Domain size</span><span class="v">${a.domain_size ?? "—"}</span>
+        <span class="k">PAD count</span><span class="v">${a.pad_count ?? "—"}</span>
+        <span class="k">NO_VOTE count</span><span class="v">${a.no_vote_count ?? "—"}</span>
         ${counts}
-        <span class="k">Registration valid</span><span class="v">${a.registration_valid == null ? "-" : a.registration_valid ? "yes" : "NO"}</span>
+        <span class="k">Registration valid</span><span class="v">${a.registration_valid == null ? "—" : a.registration_valid ? "yes" : "NO"}</span>
         <span class="k">Proving time</span><span class="v">${fmtMs(a.proving_time_ms)}</span>
         <span class="k">Verification time</span><span class="v">${fmtMs(a.verification_time_ms)}</span>
         <span class="k">Proof size</span><span class="v">${fmtBytes(a.proof_size_bytes)}</span>
@@ -623,7 +645,7 @@ function renderValidatorResults(data) {
       ${data.registration.map((r) => `<tr>
         <td>${esc(r.aggregator_id)}</td>
         <td>${r.registration_valid ? pill("valid", "good") : pill("invalid", "bad")}</td>
-        <td class="muted">${r.errors.map(esc).join("; ") || "-"}</td></tr>`).join("")}
+        <td class="muted">${r.errors.map(esc).join("; ") || "—"}</td></tr>`).join("")}
     </tbody></table>
     <h3>EPA proof checks</h3>
     <table><thead><tr><th>Aggregator</th><th>Proof</th><th>Time</th><th>Errors</th></tr></thead><tbody>
@@ -631,7 +653,7 @@ function renderValidatorResults(data) {
         <td>${esc(v.aggregator_id)}</td>
         <td>${v.valid ? pill("valid", "good") : pill("invalid", "bad")}</td>
         <td>${fmtMs(v.verification_time_ms)}</td>
-        <td class="muted">${v.errors.map(esc).join("; ") || "-"}</td></tr>`).join("")}
+        <td class="muted">${v.errors.map(esc).join("; ") || "—"}</td></tr>`).join("")}
     </tbody></table>
     ${data.duplicate_voter_errors.length
       ? `<p class="note warn">Duplicate voters: ${data.duplicate_voter_errors.map(esc).join("; ")}</p>` : ""}`;
@@ -865,7 +887,7 @@ function renderBenchJob(job) {
         <span class="k">EPA verification (all)</span><span class="v">${fmtMs(r.epa_verification_time_ms)}</span>
         <span class="k">Proof bytes (all)</span><span class="v">${fmtBytes(r.proof_size_bytes_total)}</span>
         <span class="k">Public artifact</span><span class="v">${fmtBytes(r.public_artifact_size_bytes)}</span>
-        <span class="k">Peak RSS</span><span class="v">${r.max_rss_bytes ? fmtBytes(r.max_rss_bytes) : "-"}</span>
+        <span class="k">Peak RSS</span><span class="v">${r.max_rss_bytes ? fmtBytes(r.max_rss_bytes) : "—"}</span>
         <span class="k">Tally matches expected</span><span class="v">${r.tally_matches_expected ? "yes" : "no"}</span>
         <span class="k">Receipts</span><span class="v">${esc(r.receipts)}</span>
       </div>
@@ -880,7 +902,7 @@ function renderBenchJob(job) {
   }
   return `<div class="bench-job">
     <div class="head">
-      <span class="title">${esc(job.benchmark_id)} · ${c.voters.toLocaleString()} voters,
+      <span class="title">${esc(job.benchmark_id)} — ${c.voters.toLocaleString()} voters,
         ${c.aggregators} aggregators, ${esc(c.assignment)} / ${esc(c.vote_distribution)}, seed ${c.seed},
         ${c.real_crypto ? "real crypto" : "SIMULATION (non-cryptographic)"}</span>
       <span class="btn-row">${statusPillBench(job.status)}

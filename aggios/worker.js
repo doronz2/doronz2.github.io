@@ -1,6 +1,6 @@
 /* Web worker hosting the Aggios WASM build (wasm32-wasip1).
  *
- * The whole crypto stack (aggios-core and the black-box EPA prover/verifier)
+ * The whole crypto stack — aggios-core and the black-box EPA prover/verifier —
  * runs inside this worker. The minimal WASI shim below provides exactly the
  * imports the module needs: clock (EPA's internal timers), randomness
  * (key generation, proof blinding), and stdout (EPA's progress prints, routed
