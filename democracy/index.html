@@ -136,7 +136,16 @@
       font-size: 0.975rem;
       color: var(--muted);
       max-width: 640px;
+      margin-bottom: 1.1rem;
+    }
+
+    .credibility-line {
+      font-size: 0.85rem;
+      color: var(--accent-dark);
+      max-width: 640px;
       margin-bottom: 2rem;
+      padding-left: 0.75rem;
+      border-left: 2px solid var(--accent);
     }
 
     .cta-row { display: flex; gap: 0.85rem; flex-wrap: wrap; }
@@ -317,6 +326,15 @@
       max-width: 640px;
     }
 
+    .contact-fallback {
+      margin-top: 1.1rem;
+      margin-bottom: 0 !important;
+      font-size: 0.85rem;
+      color: var(--muted) !important;
+    }
+
+    .contact-fallback a { font-weight: 600; }
+
     /* ── Footer ── */
     footer {
       padding: 2.5rem 0;
@@ -382,9 +400,14 @@
       internet-voting hype, but careful democratic infrastructure: privacy,
       fairness, transparency, and independent verification.
     </p>
+    <p class="credibility-line">
+      The lab is based on
+      <a href="https://doronzarchy.com/#research">published research</a>
+      and working open-source implementations.
+    </p>
     <div class="cta-row">
       <a href="#projects" class="btn btn-primary">Explore the demos</a>
-      <a href="mailto:doronz@gmail.com?subject=Verifiable%20Democracy%20Lab%20%E2%80%94%20pilot%20or%20review" class="btn btn-ghost">Discuss a pilot or review</a>
+      <a href="mailto:doronz@gmail.com?subject=Verifiable%20Democracy%20Lab%3A%20pilot%20or%20review" class="btn btn-ghost">Discuss a pilot or review</a>
     </div>
   </div>
 </section>
@@ -456,7 +479,7 @@
           protocol description.
         </p>
         <div class="project-links">
-          <a href="https://doronzarchy.com/voting.html" class="project-link primary">Local demo &rarr;</a>
+          <a href="https://doronzarchy.com/voting.html" class="project-link primary">Run locally &rarr;</a>
           <a href="https://github.com/doronz2/CRelections" target="_blank" rel="noopener" class="project-link">GitHub &rarr;</a>
         </div>
       </div>
@@ -499,7 +522,9 @@
     <p class="audience-note">
       If you run a democratic process — a vote, a selection, an allocation —
       and want participants to be able to check the result for themselves,
-      this work is for you.
+      this work is for you. Examples include committee selection, grant
+      allocation, university elections, participatory budgeting, internal
+      governance votes, and public verification of aggregation results.
     </p>
   </div>
 </section>
@@ -518,9 +543,12 @@
         verification systems.
       </p>
       <div class="cta-row">
-        <a href="mailto:doronz@gmail.com?subject=Verifiable%20Democracy%20Lab%20%E2%80%94%20pilot" class="btn btn-primary">Run a pilot</a>
-        <a href="mailto:doronz@gmail.com?subject=Verifiable%20Democracy%20Lab%20%E2%80%94%20cryptographic%20review" class="btn btn-ghost">Request a cryptographic review</a>
+        <a href="mailto:doronz@gmail.com?subject=Verifiable%20Democracy%20Lab%3A%20pilot" class="btn btn-primary">Run a pilot</a>
+        <a href="mailto:doronz@gmail.com?subject=Verifiable%20Democracy%20Lab%3A%20cryptographic%20review" class="btn btn-ghost">Request a cryptographic review</a>
       </div>
+      <p class="contact-fallback">
+        Or write directly: <a href="mailto:doronz@gmail.com">doronz@gmail.com</a>
+      </p>
     </div>
   </div>
 </section>
