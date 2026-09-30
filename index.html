@@ -4,16 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Doron Zarchy</title>
-  <meta name="description" content="Doron Zarchy is an applied cryptographer working on Fully Homomorphic Encryption (FHE), threshold cryptography, zero-knowledge proofs, anonymous credentials, secure multiparty computation, and cryptographic infrastructure." />
+  <meta name="description" content="Doron Zarchy is an applied cryptographer working on Fully Homomorphic Encryption (FHE), threshold cryptography, zero-knowledge proofs, anonymous credentials, secure multiparty computation, cryptographic infrastructure, and AI safety." />
   <link rel="canonical" href="https://doronzarchy.com/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Doron Zarchy" />
-  <meta property="og:description" content="Applied cryptographer working on FHE, threshold cryptography, zero-knowledge proofs, anonymous credentials, secure multiparty computation, and cryptographic infrastructure." />
+  <meta property="og:description" content="Applied cryptographer working on FHE, threshold cryptography, zero-knowledge proofs, anonymous credentials, secure multiparty computation, cryptographic infrastructure, and AI safety." />
   <meta property="og:url" content="https://doronzarchy.com/" />
   <meta property="og:image" content="https://doronzarchy.com/assets/images/doron-profile.jpg" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Doron Zarchy" />
-  <meta name="twitter:description" content="Applied cryptographer working on FHE, threshold cryptography, zero-knowledge proofs, anonymous credentials, secure multiparty computation, and cryptographic infrastructure." />
+  <meta name="twitter:description" content="Applied cryptographer working on FHE, threshold cryptography, zero-knowledge proofs, anonymous credentials, secure multiparty computation, cryptographic infrastructure, and AI safety." />
   <meta name="twitter:image" content="https://doronzarchy.com/assets/images/doron-profile.jpg" />
   <meta name="google-site-verification" content="Y3EdNhpciKWlYWVJTcsc7-1uhgqbGKEFhwGkvCxDaiE" />
   <link rel="alternate" hreflang="en" href="https://doronzarchy.com/" />
@@ -33,11 +33,13 @@
       "Zero-Knowledge Proofs",
       "Anonymous Credentials",
       "Secure Multiparty Computation",
-      "Coercion-Resistant Voting"
+      "Coercion-Resistant Voting",
+      "AI Safety"
     ],
     "sameAs": [
       "https://github.com/doronz2",
-      "https://scholar.google.com/scholar?q=%22Doron+Zarchy%22"
+      "https://scholar.google.com/scholar?q=%22Doron+Zarchy%22",
+      "https://dblp.org/search?q=Doron+Zarchy"
     ]
   }
   </script>
@@ -71,6 +73,7 @@
         Computer scientist and Applied Cryptographer
         working on Fully Homomorphic Encryption (FHE), threshold cryptography, Zero-Knowledge (ZK) proof systems, anonymous credentials, anonymity solutions, and
         verifiable democratic technology. Building cryptographic systems for verifiable governance.
+        Recently, I also started working on AI safety, bringing cryptographic and verifiability tools to the problem of making AI systems trustworthy.
       </p>
       <div class="credential-lines">
         <p>PhD, <a href="https://cs.huji.ac.il/" target="_blank" rel="noopener">Hebrew University of Jerusalem</a></p>
@@ -115,6 +118,22 @@
       <div class="paper-list">
 
         <div class="paper-card">
+          <h3><a href="https://eprint.iacr.org/2026/1617" target="_blank" rel="noopener">Verifiable Self-Mix</a></h3>
+          <div class="paper-meta">IACR ePrint 2026/1617 · accepted to STM 2026 (ESORICS 2026 workshop)</div>
+          <p class="paper-abstract">
+            A new anonymous communication architecture in which users
+            &ldquo;self-mix&rdquo; their encrypted messages by writing them to secret
+            locations in a public table. Because every user learns their own
+            final location, the system offers unconditional individual
+            verifiability: anyone can check that their message landed in the
+            right slot without running any cryptographic checks.
+          </p>
+          <div class="contribution-callout">
+            <p><a href="assets/presentations/vsm-slides.pdf" target="_blank" rel="noopener" class="presentation-link">Slides (STM 2026 presentation)</a></p>
+          </div>
+        </div>
+
+        <div class="paper-card">
           <h3><a href="https://eprint.iacr.org/2026/545" target="_blank" rel="noopener">Aggregator-Based Voting using Proof of Partition</a></h3>
           <div class="paper-meta">IACR ePrint 2026/545 · ACM ASIACCS 2026</div>
           <p class="paper-abstract">
@@ -143,7 +162,7 @@
 
         <div class="paper-card">
           <h3><a href="https://eprint.iacr.org/2025/1781" target="_blank" rel="noopener">High-Throughput Universally Composable Threshold FHE Decryption</a></h3>
-          <div class="paper-meta">IACR ePrint 2025/1781 · ACM CCS 2025</div>
+          <div class="paper-meta">IACR ePrint 2025/1781 · ACM CCS 2025 · <span class="tag">Distinguished Paper Award</span></div>
           <p class="paper-abstract">
             Threshold decryption for FHE systems with a universal composability
             treatment and an implementation-oriented emphasis on throughput.
@@ -469,7 +488,7 @@
         Feel free to reach out about research, collaborations, or just to say hello.
       </p>
       <p style="margin-top:1rem">
-        <a href="mailto:doronz@gmail.com" class="btn btn-primary" style="display:inline-block;margin-top:0.5rem">doronz@gmail.com</a>
+        <a href="mailto:doronz@gmail.com" class="btn btn-primary" style="display:inline-block;margin-top:0.5rem">Contact me</a>
       </p>
     </div>
   </div>
@@ -484,6 +503,7 @@
     <nav class="footer-links" aria-label="Social links">
       <a href="mailto:doronz@gmail.com">Email</a>
       <a href="https://scholar.google.com/scholar?q=%22Doron+Zarchy%22" target="_blank" rel="noopener">Google Scholar</a>
+      <a href="https://dblp.org/search?q=Doron+Zarchy" target="_blank" rel="noopener">dblp</a>
       <a href="https://github.com/doronz2" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </div>
